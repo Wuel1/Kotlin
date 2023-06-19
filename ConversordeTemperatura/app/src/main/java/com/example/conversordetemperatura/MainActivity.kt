@@ -14,14 +14,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonF.setOnClickListener{
-            val temperatura = binding.entradaC.text.toString().toDouble()
-            val conversao = (temperatura * 1.38) + 32
-            binding.resultado.setText("A temperatura em Fahrenheit é: ${conversao}Fº")
+            if(!binding.entradaC.text.toString().isEmpty()){
+                val temperatura = binding.entradaC.text.toString().toDouble()
+                val conversao = String.format("%.2f" , (temperatura * 1.8) + 32)
+                binding.resultado.setText("A temperatura em Fahrenheit é: ${conversao}Fº")
+            }else{
+                binding.resultado.setText("Nenhum valor inserido")
+            }
         }
         binding.buttonK.setOnClickListener{
-            val temperatura = binding.entradaC.text.toString().toDouble()
-            val conversao = temperatura + 273.5
-            binding.resultado.setText("A temperatura em Kelvin é: ${conversao}Kº")
+            if(!binding.entradaC.text.toString().isEmpty()){
+                val temperatura = binding.entradaC.text.toString().toDouble()
+                val conversao = temperatura + 273.5
+                binding.resultado.setText("A temperatura em Kelvin é: ${conversao}Kº")
+            }else{
+                binding.resultado.setText("Nenhum valor inserido")
+            }
         }
     }
 }
