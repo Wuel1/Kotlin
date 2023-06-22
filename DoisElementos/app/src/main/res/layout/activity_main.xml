@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="8sp"
+        android:text="Dois campos"
+        android:textSize="34sp"
+        android:typeface="normal"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="101dp" />
+
+    <EditText
+        android:id="@+id/text1_Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Nome:"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <EditText
+        android:id="@+id/text2_Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Sobrenome:"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="368dp" />
+
+    <EditText
+        android:id="@+id/textData_Area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="05/04/1995"
+        android:gravity="center"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="465dp" />
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digite seu nome:"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="237dp" />
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digite seu sobrenome:"
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="329dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de Nascimento"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="429dp" />
+
+    <TextView
+        android:id="@+id/resultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="590dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
