@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/text_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:background="#212C65"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Conversor de Moeda"
+        android:textColor="@color/white"
+        android:textSize="29sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        android:hint="Insira o valor em Real"
+        android:inputType="number"
+        android:padding="12dp"
+        android:id="@+id/edit_texto"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="#212C65"
+        android:padding="10dp"
+        android:text="Converter"
+        android:id="@+id/button_converter"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=""
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="#212C65"
+        android:textColor="@color/white"
+        android:id="@+id/text_resultado"/>
+
+
+</LinearLayout>
