@@ -2,6 +2,7 @@ package com.example.conversodemoeda
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.conversodemoeda.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,18 +14,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.buttonConverter.setOnClickListener{
-            if(binding.editTexto.text.toString().isEmpty()){
-                binding.textResultado.setText("Nenhum Valor Inserido")
-            }else{
-                val real = binding.editTexto.text.toString().toDouble()
-                val dolar = real * 4.75
-                val resultado = String.format("%.2f", dolar)
-                binding.textResultado.setText("${resultado} $")
-            }
-
+        binding.buttonDolar.setOnClickListener{
+            escrever(0.21)
         }
+        binding.buttonEuro.setOnClickListener{
+            escrever(0.19)
+        }
+        binding.buttonPeso.setOnClickListener{
+            escrever(52.92)
+        }
+}
 
-
+    private fun escrever(x: Double) {
+        if(binding.editTexto.text.toString().isEmpty()){
+            binding.textResultado.setText("Nenhum Valor Inserido")
+            Toast.makeText(applicationContext,"Erro", Toast.LENGTH_SHORT).show()
+        }else{
+            val real = binding.editTexto.text.toString().toDouble()
+            val moeda = real * x
+            val resultado = String.format("%.2f", moeda)
+            binding.textResultado.setText("${resultado} $")
+            Toast.makeText(applicationContext,"Sucesso!", Toast.LENGTH_SHORT).show()
+        }
     }
 }

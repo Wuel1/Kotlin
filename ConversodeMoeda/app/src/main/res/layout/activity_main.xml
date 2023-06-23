@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212C65"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -11,7 +12,7 @@
         android:id="@+id/text_titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_marginTop="50dp"
         android:background="#212C65"
         android:gravity="center"
         android:padding="10dp"
@@ -20,33 +21,61 @@
         android:textSize="29sp" />
 
     <EditText
+        android:id="@+id/edit_texto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="40dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center"
         android:hint="Insira o valor em Real"
-        android:inputType="number"
+        android:inputType="number|numberDecimal|numberSigned"
         android:padding="12dp"
-        android:id="@+id/edit_texto"/>
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="#212C65"
-        android:padding="10dp"
-        android:text="Converter"
-        android:id="@+id/button_converter"/>
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_dolar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#212C65"
+            android:padding="10dp"
+            android:text="Dolar" />
+
+        <Button
+            android:id="@+id/button_euro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="#212C65"
+            android:padding="10dp"
+            android:text="Euro" />
+
+        <Button
+            android:id="@+id/button_peso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#212C65"
+            android:padding="10dp"
+            android:text="Peso" />
+
+
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/text_resultado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text=""
         android:gravity="center"
-        android:textSize="30sp"
-        android:background="#212C65"
+        android:text=""
         android:textColor="@color/white"
-        android:id="@+id/text_resultado"/>
+        android:textSize="35sp"/>
+
 
 
 </LinearLayout>
