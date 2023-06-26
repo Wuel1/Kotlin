@@ -1,10 +1,9 @@
 package com.example.telalogin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.telalogin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun conferir(username: String, senha: String) {
-        if(username.equals("wandson.emanuel") && senha.equals("eandson2002")){
+        if(username.equals("") && senha.equals("")){
             Toast.makeText(applicationContext,"Login Confirmado",Toast.LENGTH_LONG).show()
             startActivity(Intent(this, ProfileActivity::class.java))
         }else{

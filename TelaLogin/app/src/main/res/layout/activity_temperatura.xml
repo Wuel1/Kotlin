@@ -11,74 +11,82 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Conversor de Temperatura"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:textSize="20dp"
         android:padding="20dp"
-        android:textColor="@color/white"/>
+        android:text="Conversor de Temperatura"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Digite abaixo o valor em ºC"
         android:textColor="@color/white"
-        android:layout_gravity="center"
-        android:textSize="15dp"/>
+        android:textSize="15dp" />
+
     <EditText
+        android:id="@+id/entrada_C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Cº"
-        android:minWidth="80dp"
-        android:minHeight="10dp"
-        android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:hint="Cº"
         android:inputType="number|numberDecimal|numberSigned"
-        android:id="@+id/entrada_C"/>
+        android:minWidth="80dp"
+        android:minHeight="10dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button_F"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="50dp"
+            android:background="#61FFFFFF"
             android:gravity="center"
             android:text="Fahrenheit"
-            android:layout_marginHorizontal="50dp"
-            android:background="#61FFFFFF"
-            android:id="@+id/button_F"/>
+            android:textColor="@color/white" />
+
         <Button
+            android:id="@+id/button_K"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginHorizontal="50dp"
-            android:text="Kelvin"
+            android:padding="10dp"
+            android:layout_marginHorizontal="40dp"
             android:background="#61FFFFFF"
-            android:id="@+id/button_K"/>
+            android:gravity="center"
+            android:text="Kelvin"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
 
     <TextView
+        android:id="@+id/resultado"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:id="@+id/resultado"/>
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/button_voltar"
-        android:text="Voltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        android:background="#61FFFFFF"/>
+        android:layout_marginTop="50dp"
+        android:background="#61FFFFFF"
+        android:text="Voltar"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

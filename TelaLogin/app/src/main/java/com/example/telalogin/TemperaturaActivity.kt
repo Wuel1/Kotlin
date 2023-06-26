@@ -31,5 +31,9 @@ class TemperaturaActivityActivity : AppCompatActivity() {
                 binding.resultado.setText("Nenhum valor inserido")
             }
         }
+
+        binding.buttonVoltar.setOnClickListener {
+            finish()
+        }
     }
 }

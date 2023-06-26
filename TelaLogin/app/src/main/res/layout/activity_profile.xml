@@ -31,11 +31,32 @@
         android:layout_gravity="center"
         android:textColor="@color/white"/>
     <Button
+        android:id="@+id/button_temperatura"
+        android:text="Conversor de Temperatura"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
+        android:layout_gravity="center"
+        android:background="#61FFFFFF"/>
+    <Button
+        android:id="@+id/button_moeda"
+        android:text="Conversor de Moeda"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
+        android:layout_gravity="center"
+        android:background="#61FFFFFF"/>
+
+    <Button
         android:id="@+id/button_voltar"
         android:text="Voltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:background="#61FFFFFF"/>
 
