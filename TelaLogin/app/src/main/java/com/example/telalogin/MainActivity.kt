@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun conferir(username: String, senha: String) {
-        if(username.equals("") && senha.equals("")){
+        if(username.equals("wandson.emanuel") && senha.equals("123456")){
             Toast.makeText(applicationContext,"Login Confirmado",Toast.LENGTH_LONG).show()
             startActivity(Intent(this, ProfileActivity::class.java))
         }else{

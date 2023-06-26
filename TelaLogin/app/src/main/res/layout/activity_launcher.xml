@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#14183C"
     tools:context=".LauncherActivity">
 
     <ImageView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_margin="100dp"
-        android:src="@drawable/ufrpe"
+        android:src="@drawable/ufrpe_branco"
         android:outlineAmbientShadowColor="@color/white"/>
+    />
 
 </LinearLayout>
