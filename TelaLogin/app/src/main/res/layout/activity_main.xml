@@ -12,17 +12,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#61FFFFFF"
-        android:fontFamily="casual"
         android:padding="10dp"
-        android:text="Bem-vido!"
-        android:textColor="@color/black"
+        android:text="Bem-vindo!"
+        android:textColor="@color/white"
         android:textSize="40sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
         android:padding="10dp"
         android:text="Preencha abaixo para continuar"
         android:layout_margin="10dp"
@@ -92,7 +89,8 @@
         android:layout_height="100dp"
         android:layout_width="100dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/ufrpe" />
+        android:src="@drawable/ufrpe"
+        android:outlineAmbientShadowColor="@color/white"/>
 
 
 </LinearLayout>
