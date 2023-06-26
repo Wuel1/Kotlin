@@ -22,9 +22,6 @@ class MainActivity : AppCompatActivity() {
                 val resultado = String.format("%.2f", dolar)
                 binding.textResultado.setText("${resultado} $")
             }
-
         }
-
-
     }
 }
