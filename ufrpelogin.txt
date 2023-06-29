@@ -1,3 +1,5 @@
+tema escuro 
+
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.UfrpeLogin" parent="Theme.Material3.DayNight.NoActionBar">
