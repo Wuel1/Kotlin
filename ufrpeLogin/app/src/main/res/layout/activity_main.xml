@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#406E7A90"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#1c2c4c"
+        android:background="@drawable/bg_box"
         android:orientation="horizontal"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black">

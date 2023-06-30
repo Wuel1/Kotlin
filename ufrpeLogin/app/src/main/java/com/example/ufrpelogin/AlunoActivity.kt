@@ -12,5 +12,9 @@ class AlunoActivity : AppCompatActivity() {
         binding = ActivityAlunoBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.buttonVoltar.setOnClickListener {
+            finish()
+        }
     }
 }
