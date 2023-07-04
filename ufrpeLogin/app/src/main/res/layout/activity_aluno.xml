@@ -13,6 +13,7 @@
         android:layout_height="80dp"
         android:background="@drawable/bg_box">
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,6 +103,15 @@
 
 
     </LinearLayout>
+
+
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="250dp"
+        android:layout_gravity="center"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_btn"
+        app:menu="@menu/menu"/> -->
 
     <Button
         android:id="@+id/button_voltar"
