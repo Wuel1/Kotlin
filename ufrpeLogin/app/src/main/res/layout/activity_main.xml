@@ -113,17 +113,27 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/button_professor"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Professor" />
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
 
-            <CheckBox
-                android:id="@+id/button_aluno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Aluno" />
+                <RadioButton
+                    android:id="@+id/button_professor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Professor"/>
+
+                <RadioButton
+                    android:id="@+id/button_aluno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aluno"/>
+
+
+            </RadioGroup>
 
 
         </LinearLayout>

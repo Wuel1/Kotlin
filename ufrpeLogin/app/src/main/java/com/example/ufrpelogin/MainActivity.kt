@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
     private fun conferir(){
         if(!binding.buttonAluno.isChecked && !binding.buttonProfessor.isChecked){ // Nenhuma das caixas estão marcadas
             Toast.makeText(applicationContext, "Por favor, selecione o tipo do usuário", Toast.LENGTH_SHORT).show()
-        }else if(binding.buttonAluno.isChecked && binding.buttonProfessor.isChecked){ // As duas caixas estão marcadas
-            Toast.makeText(applicationContext, "Por favor, selecione apenas um tipo do usuário", Toast.LENGTH_SHORT).show()
         }else if(binding.buttonAluno.isChecked){ //Caixa de Aluno marcada
             Toast.makeText(applicationContext, "Aluno Confirmado!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AlunoActivity::class.java))
