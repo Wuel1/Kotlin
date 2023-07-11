@@ -2,6 +2,7 @@ package com.example.ufrpelogin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityProfessorBinding
 
 class ProfessorActivity : AppCompatActivity() {
@@ -16,6 +17,17 @@ class ProfessorActivity : AppCompatActivity() {
         binding.buttonVoltar.setOnClickListener {
             finish()
         }
-
+        binding.buttonCadeiras.setOnClickListener {
+            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+        }
+        binding.buttonHorarios.setOnClickListener {
+            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+        }
+        binding.button3.setOnClickListener {
+            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+        }
+        binding.button4.setOnClickListener {
+            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+        }
     }
 }
