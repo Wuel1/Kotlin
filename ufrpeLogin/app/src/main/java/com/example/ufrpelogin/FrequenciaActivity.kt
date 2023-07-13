@@ -2,6 +2,7 @@ package com.example.ufrpelogin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.example.ufrpelogin.databinding.ActivityFrequenciaAlunoBinding
 
 class FrequenciaActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class FrequenciaActivity : AppCompatActivity() {
 
         binding.confirmButton.setOnClickListener {
             binding.status.setText("Frequência Realizada")
+            binding.confirmButton.setBackgroundResource(R.drawable.baseline_bluetooth_connected_24_white)
+            binding.status.setBackgroundResource(R.drawable.bg_btn_blue)
         }
 
     }
