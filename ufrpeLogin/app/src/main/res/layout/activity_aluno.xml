@@ -91,7 +91,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_3"
+            android:id="@+id/frequencia"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="15dp"

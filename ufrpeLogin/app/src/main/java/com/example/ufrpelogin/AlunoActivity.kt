@@ -1,5 +1,6 @@
 package com.example.ufrpelogin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -23,8 +24,8 @@ class AlunoActivity : AppCompatActivity() {
         binding.buttonHorarios.setOnClickListener {
             Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
         }
-        binding.button3.setOnClickListener {
-            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+        binding.frequencia.setOnClickListener {
+            startActivity(Intent(this, FrequenciaActivity::class.java))
         }
         binding.button4.setOnClickListener {
             Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
