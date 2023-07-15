@@ -13,6 +13,9 @@
         android:theme="@style/Theme.UfrpeLogin"
         tools:targetApi="31">
         <activity
+            android:name=".FrequenciaHost"
+            android:exported="false" />
+        <activity
             android:name=".FrequenciaActivity"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ class FrequenciaActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.confirmButton.setOnClickListener {
+        binding.confirmButton.setOnClickListener { // Botão para confirmar o login
             binding.status.setText("Frequência Realizada")
             binding.confirmButton.setBackgroundResource(R.drawable.baseline_bluetooth_connected_24_white)
             binding.status.setBackgroundResource(R.drawable.bg_btn_blue)

@@ -24,7 +24,7 @@ class AlunoActivity : AppCompatActivity() {
         binding.buttonHorarios.setOnClickListener {
             Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
         }
-        binding.frequencia.setOnClickListener {
+        binding.frequencia.setOnClickListener { // leva para o tela de frequência
             startActivity(Intent(this, FrequenciaActivity::class.java))
         }
         binding.button4.setOnClickListener {
