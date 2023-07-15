@@ -3,8 +3,10 @@ package com.example.ufrpelogin
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityFrequenciaHostBinding
 
@@ -29,20 +31,33 @@ class FrequenciaHost : AppCompatActivity() {
         }
 
         binding.AtivaBluetooth.setOnClickListener {
-            if(bluetoothAdapter==null){
-                Toast.makeText(applicationContext, "Bluetooth indisponível", Toast.LENGTH_SHORT).show()
+            if(!bluetoothAdapter.isEnabled){
+                binding.bluetoothImagem.setImageResource(R.drawable.baseline_bluetooth_connected_24_white)
+                startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
             }else{
-                Toast.makeText(applicationContext, "Bluetooth Disponível", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Bluetooth já está ligado", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.DesativaBluetooth.setOnClickListener {
+            if(bluetoothAdapter.isEnabled){
+                startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
+                binding.bluetoothImagem.setImageResource(R.drawable.baseline_bluetooth_connected_24)
+            }else{
+                Toast.makeText(this, "Bluetooth já está desligado", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun conferir(bluetoothManager: BluetoothManager, bluetoothAdapter: BluetoothAdapter){
-        if(bluetoothAdapter==null){
-            Toast.makeText(applicationContext, "Bluetooth indisponível", Toast.LENGTH_SHORT).show()
-            finish()
-        }else{
-            Toast.makeText(applicationContext, "Bluetooth Disponível", Toast.LENGTH_SHORT).show()
+        try {
+            if (bluetoothAdapter.isEnabled) { // Verifica se o Bluetooth já está ativado, caso sim, troca a imagem.
+                //Toast.makeText(this, "deu bom", Toast.LENGTH_SHORT).show()
+                binding.bluetoothImagem.setImageResource(R.drawable.baseline_bluetooth_connected_24_white)
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error ao identificar Bluetooth", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
         }
+
     }
 }
