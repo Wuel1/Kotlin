@@ -1,13 +1,16 @@
 package com.example.ufrpelogin
 
+import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.example.ufrpelogin.databinding.ActivityFrequenciaHostBinding
 
 class FrequenciaHost : AppCompatActivity() {
@@ -46,6 +49,9 @@ class FrequenciaHost : AppCompatActivity() {
                 Toast.makeText(this, "Bluetooth já está desligado", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.PareadosBluetooth.setOnClickListener {
+            listaPareados(bluetoothAdapter)
+        }
     }
 
     private fun conferir(bluetoothManager: BluetoothManager, bluetoothAdapter: BluetoothAdapter){
@@ -58,6 +64,27 @@ class FrequenciaHost : AppCompatActivity() {
             Toast.makeText(this, "Error ao identificar Bluetooth", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
+    }
 
+    private fun listaPareados(bluetoothAdapter: BluetoothAdapter) {
+        binding.listaPareados.setText("")
+        val pareados = if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        } else {
+            bluetoothAdapter.bondedDevices
+        }
+
+        var qt = 0 // Inicia a variável para contagem
+
+        for (i in pareados) { // Percorre todos os pareados
+            qt += 1 // Contagem de pareados
+            val nomeDispositivo = i.name // Pega o nome do dispositivo
+            val enderecoDispositivo = i.address // Pega o endereço do dispositivo
+            binding.listaPareados.append("${qt} - ${nomeDispositivo}\n")// Mostra na tela a lista.
+        }
     }
 }

@@ -45,7 +45,7 @@
             android:gravity="center">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_btn"
                 android:id="@+id/AtivaBluetooth"
@@ -56,13 +56,12 @@
                 />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_btn"
                 android:id="@+id/DesativaBluetooth"
                 android:text="Desativar Bluetooth"
                 android:padding="10dp"
-                android:layout_margin="30dp"
                 android:textColor="@color/white"
                 />
 
@@ -84,16 +83,35 @@
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn"
             android:id="@+id/PareadosBluetooth"
-            android:text="Pareados"
+            android:text="Atualizar Pareados"
             android:padding="10dp"
             android:layout_margin="30dp"
             android:textColor="@color/white"
             />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_2"
+            android:id="@+id/lista_pareados"
+            android:gravity="center"
+            android:text="Nenhum dispositivo Pareado"
+            android:textColor="@color/white"
+            android:textSize="13sp"/>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>
