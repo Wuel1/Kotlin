@@ -65,7 +65,6 @@ class FrequenciaHost : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-
     private fun listaPareados(bluetoothAdapter: BluetoothAdapter) {
         binding.listaPareados.setText("")
         val pareados = if (ActivityCompat.checkSelfPermission(
@@ -80,11 +79,19 @@ class FrequenciaHost : AppCompatActivity() {
 
         var qt = 0 // Inicia a variável para contagem
 
+        val pairingTimeout = 5 * 60 * 1000 // Tempo limite de pareamento em milissegundos
+        val startTime = System.currentTimeMillis() // Tempo de início do pareamento
+
         for (i in pareados) { // Percorre todos os pareados
+            if (System.currentTimeMillis() - startTime > pairingTimeout) {
+                Toast.makeText(this, "Tempo limite de pareamento atingido.", Toast.LENGTH_SHORT).show()
+                break
+            }
             qt += 1 // Contagem de pareados
             val nomeDispositivo = i.name // Pega o nome do dispositivo
             val enderecoDispositivo = i.address // Pega o endereço do dispositivo
-            binding.listaPareados.append("${qt} - ${nomeDispositivo}\n")// Mostra na tela a lista.
+            binding.listaPareados.append("${qt} - ${nomeDispositivo}\n") // Mostra na tela a lista.
         }
     }
+
 }
