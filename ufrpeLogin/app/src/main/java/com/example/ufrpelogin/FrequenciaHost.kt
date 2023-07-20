@@ -31,6 +31,8 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         // Conferindo se pode se conseguir acesso ao Bluetooth
         conferir(bluetoothManager, bluetoothAdapter)
 
+        binding.nomeDispositivo.setText(bluetoothAdapter.name.toString())
+
         binding.buttonVoltar.setOnClickListener {// Voltar
             finish()
         }
