@@ -11,8 +11,6 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.ufrpelogin.R
-import com.example.ufrpelogin.TimerHelper
 import com.example.ufrpelogin.databinding.ActivityFrequenciaHostBinding
 
 class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
@@ -113,7 +111,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
             qt += 1
             val nomeDispositivo = i.name
-            val enderecoDispositivo = i.address
+            //val enderecoDispositivo = i.address
             val deviceInfo = "${qt} - ${nomeDispositivo}\n"
 
             runOnUiThread {
@@ -122,7 +120,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
             }
         }
     }
-
 
     override fun onTick(millisUntilFinished: Long) {
         val minutes = millisUntilFinished / 60000
@@ -138,4 +135,5 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
     }
+
 }
