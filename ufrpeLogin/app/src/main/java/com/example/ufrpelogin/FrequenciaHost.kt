@@ -33,11 +33,11 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         // Conferindo se pode se conseguir acesso ao Bluetooth
         conferir(bluetoothManager, bluetoothAdapter)
 
-        binding.buttonVoltar.setOnClickListener {
+        binding.buttonVoltar.setOnClickListener {// Voltar
             finish()
         }
 
-        binding.AtivaBluetooth.setOnClickListener {
+        binding.AtivaBluetooth.setOnClickListener {// Ativar o Bluetooth manualmente
             if (!bluetoothAdapter.isEnabled) {
                 binding.bluetoothImagem.setImageResource(R.drawable.baseline_bluetooth_connected_24_white)
                 startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
@@ -46,7 +46,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
             }
         }
 
-        binding.DesativaBluetooth.setOnClickListener {
+        binding.DesativaBluetooth.setOnClickListener {// Desativa o Bluetooth
             if (bluetoothAdapter.isEnabled) {
                 startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
                 binding.bluetoothImagem.setImageResource(R.drawable.baseline_bluetooth_connected_24)
@@ -55,11 +55,15 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
             }
         }
 
-        binding.PareadosBluetooth.setOnClickListener {
+        binding.PareadosBluetooth.setOnClickListener { // Inicia o Timer, e verifica se o bluetooth está desligado
             if(!bluetoothAdapter.isEnabled){
                 Toast.makeText(this, "Por favor, ligue o Bluetooth para começar a chamada", Toast.LENGTH_SHORT).show()
             } else if (!isTimerRunning) {
                 startTimer()
+                val discoverableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
+                    putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
+                }
+                startActivity(discoverableIntent)
                 listaPareados(bluetoothAdapter)
             } else{
                 Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
@@ -85,7 +89,8 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     }
 
     private fun listaPareados(bluetoothAdapter: BluetoothAdapter) {
-        binding.listaPareados.setText("\n")
+        binding.listaPareados.text = "\n" // Reset the text first
+
         val pareados = if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.BLUETOOTH
@@ -97,7 +102,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         }
 
         var qt = 0
-
         val pairingTimeout = 5 * 60 * 1000
         val startTime = System.currentTimeMillis()
 
@@ -106,21 +110,31 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                 Toast.makeText(this, "Tempo limite de pareamento atingido.", Toast.LENGTH_SHORT).show()
                 break
             }
+
             qt += 1
             val nomeDispositivo = i.name
             val enderecoDispositivo = i.address
-            binding.listaPareados.append("${qt} - ${nomeDispositivo}\n")
+            val deviceInfo = "${qt} - ${nomeDispositivo}\n"
+
+            runOnUiThread {
+                binding.listaPareados.append(deviceInfo)
+                binding.listaPareados.invalidate()
+            }
         }
     }
+
 
     override fun onTick(millisUntilFinished: Long) {
         val minutes = millisUntilFinished / 60000
         val seconds = (millisUntilFinished % 60000) / 1000
         val timeLeft = String.format("%02d:%02d", minutes, seconds)
+        binding.PareadosBluetooth.setText("Frequência em execução")
+        binding.Timer.setHintTextColor(16777215)
         binding.Timer.text = timeLeft
     }
 
     override fun onFinish() {
+        binding.PareadosBluetooth.setText("Iniciar Frequência")
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
     }

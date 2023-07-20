@@ -90,6 +90,7 @@
             android:background="@drawable/bg_btn_2"
             android:layout_marginTop="10dp"
             android:hint="5:00"
+            android:padding="5dp"
             android:textColorHint="#94FFFFFF"
             android:gravity="center"/>
 
