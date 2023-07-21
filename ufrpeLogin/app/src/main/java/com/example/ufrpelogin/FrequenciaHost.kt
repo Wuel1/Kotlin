@@ -2,6 +2,7 @@ package com.example.ufrpelogin
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -89,7 +90,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     }
 
     private fun listaPareados(bluetoothAdapter: BluetoothAdapter) {
-        binding.listaPareados.text = "\n" // Reset the text first
+        binding.listaPareados.text = "\n" // Limpa o Campo
 
         val pareados = if (ActivityCompat.checkSelfPermission(
                 this,
@@ -105,23 +106,33 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         val pairingTimeout = 5 * 60 * 1000
         val startTime = System.currentTimeMillis()
 
-        for (i in pareados) {
+        for (device in pareados) {
             if (System.currentTimeMillis() - startTime > pairingTimeout) {
                 Toast.makeText(this, "Tempo limite de pareamento atingido.", Toast.LENGTH_SHORT).show()
                 break
             }
 
-            qt += 1
-            val nomeDispositivo = i.name
-            //val enderecoDispositivo = i.address
-            val deviceInfo = "${qt} - ${nomeDispositivo}\n"
+            val deviceClass = device.bluetoothClass
+            if (deviceClass != null) {
+                val majorDeviceClass = deviceClass.majorDeviceClass
+                // 0x01 -> COMPUTADOR, 0x02 -> TELEFONE CELULAR
+                if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
+                    majorDeviceClass == BluetoothClass.Device.Major.PHONE
+                ) {
+                    qt += 1
+                    val nomeDispositivo = device.name
+                    //val enderecoDispositivo = device.address
+                    val deviceInfo = "${qt} - ${nomeDispositivo}\n"
 
-            runOnUiThread {
-                binding.listaPareados.append(deviceInfo)
-                binding.listaPareados.invalidate()
+                    runOnUiThread {
+                        binding.listaPareados.append(deviceInfo)
+                        binding.listaPareados.invalidate()
+                    }
+                }
             }
         }
     }
+
 
     override fun onTick(millisUntilFinished: Long) {
         val minutes = millisUntilFinished / 60000
@@ -134,6 +145,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
     override fun onFinish() {
         binding.PareadosBluetooth.setText("Iniciar Frequência")
+        Toast.makeText(this, "Tempo Finalizado", Toast.LENGTH_SHORT).show()
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
     }
