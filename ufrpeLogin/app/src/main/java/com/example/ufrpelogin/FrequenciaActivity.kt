@@ -1,5 +1,6 @@
 package com.example.ufrpelogin
 
+import com.example.ufrpelogin.db.DBHelper
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -12,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.ufrpelogin.databinding.ActivityFrequenciaAlunoBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class FrequenciaActivity : AppCompatActivity() {
 
@@ -50,9 +53,11 @@ class FrequenciaActivity : AppCompatActivity() {
 
     private fun confirmarHost(bluetoothAdapter: BluetoothAdapter){
         val pareados = (listaPareados(bluetoothAdapter))
+        val dbHelper = DBHelper(this)
         for(dispositivo in pareados){
-            if(dispositivo.address.toString() == "00:45:E2:6A:46:3C"){ //Verifica com MAC do Host
+            if(dbHelper.isProfessorMac(dispositivo.address.toString())){ //Verifica com MAC do Host
                 Toast.makeText(this, "Pareamento com Host Confirmado", Toast.LENGTH_SHORT).show()
+                dbHelper.inserirFrequencia(obterNomeTabelaFrequencia(), dispositivo.name, dispositivo.address)
                 binding.status.setText("Frequência Realizada")
                 binding.confirmButton.setBackgroundResource(R.drawable.baseline_bluetooth_connected_24_white)
                 binding.status.setBackgroundResource(R.drawable.bg_btn_blue)
@@ -60,5 +65,12 @@ class FrequenciaActivity : AppCompatActivity() {
             }
         }
         Toast.makeText(this, "Pareamento com Host não identificado", Toast.LENGTH_SHORT).show()
+    }
+
+    fun obterNomeTabelaFrequencia(): String {
+        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
+        val dataAtual = Date()
+        val dataFormatada = formatoData.format(dataAtual)
+        return "Frequencia_$dataFormatada"
     }
 }

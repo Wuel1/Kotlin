@@ -1,5 +1,6 @@
 package com.example.ufrpelogin
 
+import com.example.ufrpelogin.db.DBHelper
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothClass
@@ -13,6 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.ufrpelogin.databinding.ActivityFrequenciaHostBinding
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
@@ -65,6 +68,10 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                     putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
                 }
                 startActivity(discoverableIntent)
+                // Chama a função para criar a tabela de frequência
+                val nomeTabelaFrequencia = obterNomeTabelaFrequencia() // Defina um nome adequado para a tabela de frequência
+                val dbHelper = DBHelper(this)
+                dbHelper.criarTabelaFrequencia(nomeTabelaFrequencia)
                 listaPareados(bluetoothAdapter)
             } else{
                 Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
@@ -148,6 +155,13 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         Toast.makeText(this, "Tempo Finalizado", Toast.LENGTH_SHORT).show()
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
+    }
+
+    fun obterNomeTabelaFrequencia(): String {
+        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
+        val dataAtual = Date()
+        val dataFormatada = formatoData.format(dataAtual)
+        return "Frequencia_$dataFormatada"
     }
 
 }
