@@ -9,6 +9,28 @@ import androidx.core.content.contentValuesOf
 
 class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.db",null,1) {
 
+    companion object {
+        private const val DATABASE_NAME = "frequenciadatabase.db"
+        private const val DATABASE_VERSION = 1
+
+        // Tabela de professores
+        private const val TABLE_PROFESSOR = "professor"
+        private const val COLUMN_PROFESSOR_ID = "id"
+        private const val COLUMN_PROFESSOR_USERNAME = "username"
+        private const val COLUMN_PROFESSOR_PASSWORD = "password"
+        private const val COLUMN_PROFESSOR_MAC = "mac"
+        // Adicione as colunas para mac_2 e mac_3, se necessário.
+
+        // Tabela de alunos
+        private const val TABLE_ALUNOS = "alunos"
+        private const val COLUMN_ALUNO_ID = "Id"
+        private const val COLUMN_ALUNO_USERNAME = "username"
+        private const val COLUMN_ALUNO_PASSWORD = "password"
+        private const val COLUMN_ALUNO_MAC = "mac"
+        // Adicione as colunas para mac_2 e mac_3, se necessário.
+    }
+
+
     val sql = arrayOf(
         "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)" ,
         "INSERT INTO professor (username,password,mac) VALUES ('waldemar.neto','12345','00:45:E2:6A:46:3C')" ,
@@ -124,6 +146,29 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         return isMatchFound
     }
 
+    // Método para verificar se um professor existe no banco de dados
+    fun checkProfessor(username: String, password: String): Boolean {
+        val db = this.readableDatabase
+        val columns = arrayOf(COLUMN_PROFESSOR_ID)
+        val selection = "$COLUMN_PROFESSOR_USERNAME = ? AND $COLUMN_PROFESSOR_PASSWORD = ?"
+        val selectionArgs = arrayOf(username, password)
+        val cursor: Cursor? = db.query(TABLE_PROFESSOR, columns, selection, selectionArgs, null, null, null)
+        val count = cursor?.count ?: 0
+        cursor?.close()
+        return count > 0
+    }
+
+    // Método para verificar se um aluno existe no banco de dados
+    fun checkAluno(username: String, password: String): Boolean {
+        val db = this.readableDatabase
+        val columns = arrayOf(COLUMN_ALUNO_ID)
+        val selection = "$COLUMN_ALUNO_USERNAME = ? AND $COLUMN_ALUNO_PASSWORD = ?"
+        val selectionArgs = arrayOf(username, password)
+        val cursor: Cursor? = db.query(TABLE_ALUNOS, columns, selection, selectionArgs, null, null, null)
+        val count = cursor?.count ?: 0
+        cursor?.close()
+        return count > 0
+    }
 
     fun professorSelect(): Cursor {
         val db = this.readableDatabase

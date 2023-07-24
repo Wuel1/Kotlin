@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.ufrpelogin.databinding.ActivityMainBinding
+import com.example.ufrpelogin.db.DBHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,15 +20,26 @@ class MainActivity : AppCompatActivity() {
             conferir()
         }
     }
-    private fun conferir(){
-        if(!binding.buttonAluno.isChecked && !binding.buttonProfessor.isChecked){ // Nenhuma das caixas estão marcadas
-            Toast.makeText(applicationContext, "Por favor, selecione o tipo do usuário", Toast.LENGTH_SHORT).show()
-        }else if(binding.buttonAluno.isChecked){ //Caixa de Aluno marcada
-            Toast.makeText(applicationContext, "Aluno Confirmado!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, AlunoActivity::class.java))
-        }else if(binding.buttonProfessor.isChecked){ //Caixa de Professor marcada
-            Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, ProfessorActivity::class.java))
+
+    private fun conferir() {
+
+        val databaseHelper = DBHelper(this)
+        val username = binding.username.text.toString()
+        val password = binding.password.text.toString()
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(applicationContext, "Dados incompletos", Toast.LENGTH_SHORT).show()
+        } else {
+            if (databaseHelper.checkAluno(username, password)) {
+                Toast.makeText(applicationContext, "Aluno Confirmado!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, AlunoActivity::class.java))
+            } else if (databaseHelper.checkProfessor(username, password)) {
+                Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, ProfessorActivity::class.java))
+            } else {
+                Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 }
