@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             if (databaseHelper.checkProfessor(username, password)) {
                 Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
-              //  startActivity(Intent(this, ProfessorActivity::class.java))
+                startActivity(Intent(this, ProfessorActivity::class.java))
             } else {
                 Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
             }

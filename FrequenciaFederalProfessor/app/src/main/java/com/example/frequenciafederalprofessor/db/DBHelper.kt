@@ -54,4 +54,17 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         cursor?.close()
         return count > 0
     }
+    fun criarTabelaFrequencia(nomeTabela: String) {
+        val db = this.writableDatabase
+
+        // Cria a tabela de frequência com o nome fornecido (substituindo espaços por underscores para evitar problemas)
+        val tableName = "frequencia_${nomeTabela.replace(" ", "_")}"
+        val createTableQuery = ("CREATE TABLE IF NOT EXISTS " + tableName + "("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "nome TEXT,"
+                + "mac TEXT"
+                + ")")
+        db.execSQL(createTableQuery)
+        db.close()
+    }
 }
