@@ -42,4 +42,16 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         db.execSQL("DROP TABLE alunos")
         onCreate(db)
     }
+
+    // Método para verificar se um professor existe no banco de dados
+    fun checkProfessor(username: String, password: String): Boolean {
+        val db = this.readableDatabase
+        val columns = arrayOf(COLUMN_PROFESSOR_ID)
+        val selection = "$COLUMN_PROFESSOR_USERNAME = ? AND $COLUMN_PROFESSOR_PASSWORD = ?"
+        val selectionArgs = arrayOf(username, password)
+        val cursor: Cursor? = db.query(TABLE_PROFESSOR, columns, selection, selectionArgs, null, null, null)
+        val count = cursor?.count ?: 0
+        cursor?.close()
+        return count > 0
+    }
 }
