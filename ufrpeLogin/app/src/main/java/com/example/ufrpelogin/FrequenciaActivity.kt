@@ -71,6 +71,6 @@ class FrequenciaActivity : AppCompatActivity() {
         val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
         val dataAtual = Date()
         val dataFormatada = formatoData.format(dataAtual)
-        return "Frequencia_$dataFormatada"
+        return "frequencia_$dataFormatada"
     }
 }

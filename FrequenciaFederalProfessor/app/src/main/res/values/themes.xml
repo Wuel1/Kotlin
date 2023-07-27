@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FrequênciaFederalProfessor" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#1c2c4c</item>
+        <item name="colorPrimaryDark">#1c2c4c</item>
+        <item name="android:forceDarkAllowed" tools:tagetApi="q"> false</item>
+    </style>
+
+    <style name="Theme.FrequênciaFederalProfessor" parent="Base.Theme.FrequênciaFederalProfessor" />
+</resources>
