@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context=".FrequenciaActivity">
+    tools:context=".FrequenciaHost">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,14 +82,24 @@
                 />
 
         </LinearLayout>
-
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_bluetooth_connected_24"
-            android:id="@+id/bluetoothImagem"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn"
+            android:layout_margin="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_bluetooth_connected_24"
+                android:id="@+id/bluetoothImagem"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"/>
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
     <LinearLayout
@@ -98,6 +108,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center">
+
 
         <TextView
             android:layout_width="150dp"
@@ -109,6 +120,12 @@
             android:padding="5dp"
             android:textColorHint="#94FFFFFF"
             android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
 
         <Button
             android:layout_width="150dp"
@@ -118,8 +135,19 @@
             android:text="Iniciar Frequência"
             android:padding="10dp"
             android:layout_margin="30dp"
-            android:textColor="#B41C2C4C"
-            />
+            android:textColor="#B41C2C4C"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:id="@+id/Atualizar"
+            android:text="Atualizar"
+            android:padding="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="30dp"
+            android:textColor="#B41C2C4C"/>
+
 
     </LinearLayout>
 
@@ -129,12 +157,12 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_2"
             android:id="@+id/lista_pareados"
             android:gravity="center"
-            android:text="Nenhum dispositivo Pareado"
+            android:text="0 Dispositivos Pareados"
             android:textColor="@color/white"
             android:textSize="13sp"/>
 

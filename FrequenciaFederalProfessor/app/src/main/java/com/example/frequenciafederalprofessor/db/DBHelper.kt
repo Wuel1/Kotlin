@@ -39,7 +39,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE professor")
-        db.execSQL("DROP TABLE alunos")
         onCreate(db)
     }
 
