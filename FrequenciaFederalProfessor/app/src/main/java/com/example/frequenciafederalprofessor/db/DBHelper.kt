@@ -53,6 +53,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         cursor?.close()
         return count > 0
     }
+
     fun criarTabelaFrequencia(nomeTabela: String) {
         val db = this.writableDatabase
 
@@ -66,4 +67,5 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         db.execSQL(createTableQuery)
         db.close()
     }
+
 }
