@@ -90,7 +90,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
             startActivity(Intent(this, ListagemActivity::class.java))
         }
 
-
     }
 
 

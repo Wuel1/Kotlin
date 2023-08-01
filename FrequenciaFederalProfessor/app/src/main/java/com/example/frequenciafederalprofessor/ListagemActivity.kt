@@ -17,7 +17,7 @@ class ListagemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.NomeTabela.setText(obterNomeTabelaFrequencia())
+        binding.NomeTabela.setText(obterNomeTabela())
 
         binding.buttonVoltar.setOnClickListener {// Voltar
             finish()
@@ -29,14 +29,20 @@ class ListagemActivity : AppCompatActivity() {
 
     fun lista(): Array<String> {
         val dbHelper = DBHelper(this)
-        val usernamesList = dbHelper.listarUsernames()
+        val usernamesList = dbHelper.listarUsernames(obterNomeTabelaFrequencia())
         return usernamesList.toTypedArray()
     }
 
-    fun obterNomeTabelaFrequencia(): String {
+    fun obterNomeTabela(): String {
         val formatoData = SimpleDateFormat("dd/MM/yyyy | HH:mm:ss") // Define o formato desejado da data
         val dataAtual = Date()
         val dataFormatada = formatoData.format(dataAtual)
         return "$dataFormatada"
+    }
+    fun obterNomeTabelaFrequencia(): String {
+        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
+        val dataAtual = Date()
+        val dataFormatada = formatoData.format(dataAtual)
+        return "frequencia_$dataFormatada"
     }
 }

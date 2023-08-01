@@ -28,6 +28,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)",
         "INSERT INTO professor (username,password,mac) VALUES ('waldemar.neto','12345','00:45:E2:6A:46:3C')",
         "INSERT INTO professor (username,password,mac) VALUES ('lucas.ferreira','12345','00:45:E2:6A:46:3C')",
+        "INSERT INTO professor (username,password,mac) VALUES ('wandson.emanuel','12345')",
         )
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -67,16 +68,17 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         db.close()
     }
 
-    fun listarUsernames(): List<String> {
+    fun listarUsernames(nomeTabela: String): List<String> {
         val usernames = ArrayList<String>()
         val db = this.readableDatabase
 
         // Coluna que queremos recuperar (username)
         val columns = arrayOf(COLUMN_PROFESSOR_USERNAME)
 
-        // Consulta para selecionar todos os usernames da tabela professor
+        // Consulta para selecionar todos os usernames da tabela criada pelo nomeTabela
+        val tableName = "frequencia_${nomeTabela.replace(" ", "_")}"
         val cursor = db.query(
-            TABLE_PROFESSOR,
+            tableName,
             columns,
             null,
             null,
@@ -99,6 +101,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
 
         return usernames
     }
+
 
 
 }

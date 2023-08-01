@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun conferir() {
-
         val databaseHelper = DBHelper(this)
         val username = binding.username.text.toString()
         val password = binding.password.text.toString()
