@@ -162,7 +162,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     }
 
     fun obterNomeTabelaFrequencia(): String {
-        val formatoData = SimpleDateFormat("dd/MM/yyyy") // Define o formato desejado da data
+        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
         val dataAtual = Date()
         val dataFormatada = formatoData.format(dataAtual)
         return "frequencia_$dataFormatada"
