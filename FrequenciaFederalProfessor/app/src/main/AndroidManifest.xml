@@ -17,6 +17,9 @@
         android:theme="@style/Theme.FrequênciaFederalProfessor"
         tools:targetApi="31">
         <activity
+            android:name=".ListagemActivity"
+            android:exported="false" />
+        <activity
             android:name=".FrequenciaHost"
             android:exported="false" />
         <activity
