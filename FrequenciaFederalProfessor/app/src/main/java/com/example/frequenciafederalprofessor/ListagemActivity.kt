@@ -4,6 +4,7 @@ import com.example.frequenciafederalprofessor.db.DBHelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityListagemBinding
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -22,14 +23,17 @@ class ListagemActivity : AppCompatActivity() {
         binding.buttonVoltar.setOnClickListener {// Voltar
             finish()
         }
-
-        val adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1, lista())
-        binding.listView.adapter = adapter
+        try {
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, lista())
+            binding.listView.adapter = adapter
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun lista(): Array<String> {
         val dbHelper = DBHelper(this)
-        val usernamesList = dbHelper.listarUsernames(obterNomeTabelaFrequencia())
+        val usernamesList = dbHelper.listarUsernames()
         return usernamesList.toTypedArray()
     }
 

@@ -68,17 +68,16 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         db.close()
     }
 
-    fun listarUsernames(nomeTabela: String): List<String> {
+    fun listarUsernames(): List<String> {
         val usernames = ArrayList<String>()
         val db = this.readableDatabase
 
         // Coluna que queremos recuperar (username)
         val columns = arrayOf(COLUMN_PROFESSOR_USERNAME)
 
-        // Consulta para selecionar todos os usernames da tabela criada pelo nomeTabela
-        val tableName = "frequencia_${nomeTabela.replace(" ", "_")}"
+        // Consulta para selecionar todos os usernames da tabela professor
         val cursor = db.query(
-            tableName,
+            TABLE_PROFESSOR,
             columns,
             null,
             null,
@@ -101,6 +100,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
 
         return usernames
     }
+
 
 
 
