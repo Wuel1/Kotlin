@@ -28,7 +28,7 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         "CREATE TABLE professor (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)",
         "INSERT INTO professor (username,password,mac) VALUES ('waldemar.neto','12345','00:45:E2:6A:46:3C')",
         "INSERT INTO professor (username,password,mac) VALUES ('lucas.ferreira','12345','00:45:E2:6A:46:3C')",
-        "INSERT INTO professor (username,password,mac) VALUES ('wandson.emanuel','12345')",
+        "INSERT INTO professor (username,password,mac) VALUES ('wandson.emanuel','12345','00:45:E2:6A:46:3C')",
         )
 
     override fun onCreate(db: SQLiteDatabase) {
