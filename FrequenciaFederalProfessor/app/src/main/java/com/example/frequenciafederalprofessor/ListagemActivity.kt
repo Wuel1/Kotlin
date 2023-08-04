@@ -35,12 +35,15 @@ class ListagemActivity : AppCompatActivity() {
             finish()
         }
         try {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, lista(bluetoothAdapter))
+            val dbHelper = DBHelper(this)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(lista(bluetoothAdapter)) )
             binding.listView.adapter = adapter
         } catch (e: Exception) {
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
     fun lista(bluetoothAdapter: BluetoothAdapter): Array<String> {
         val pareados = if (ActivityCompat.checkSelfPermission(this,Manifest.permission.BLUETOOTH_CONNECT)
@@ -56,7 +59,7 @@ class ListagemActivity : AppCompatActivity() {
                 val majorDeviceClass = deviceClass.majorDeviceClass
                 if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                     majorDeviceClass == BluetoothClass.Device.Major.PHONE){
-                    usernamesList.add(device.name)
+                    usernamesList.add(device.address)
                 }
             }
         }

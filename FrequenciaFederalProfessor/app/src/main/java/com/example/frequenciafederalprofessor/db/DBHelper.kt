@@ -22,6 +22,14 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         private const val COLUMN_PROFESSOR_MAC = "mac"
         // Adicione as colunas para mac_2 e mac_3, se necessário.
 
+        // Tabela de alunos
+        private const val TABLE_ALUNOS = "alunos"
+        private const val COLUMN_ALUNO_ID = "Id"
+        private const val COLUMN_ALUNO_ALUNO = "aluno"
+        private const val COLUMN_ALUNO_CURSO = "curso"
+        private const val COLUMN_ALUNO_MAC = "mac"
+        // Adicione as colunas para mac_2 e mac_3, se necessário.
+
     }
 
     val sql = arrayOf(
@@ -29,6 +37,9 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         "INSERT INTO professor (username,password,mac) VALUES ('waldemar.neto','12345','00:45:E2:6A:46:3C')",
         "INSERT INTO professor (username,password,mac) VALUES ('lucas.ferreira','12345','00:45:E2:6A:46:3C')",
         "INSERT INTO professor (username,password,mac) VALUES ('wandson.emanuel','12345','00:45:E2:6A:46:3C')",
+
+        "CREATE TABLE alunos (Id INTEGER PRIMARY KEY AUTOINCREMENT, aluno TEXT, curso TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)",
+        "INSERT INTO alunos (aluno,curso,mac) VALUES ('Wandson Emanuel','Engenharia da Computação','00:1B:10:00:2A:EC')"
         )
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -101,7 +112,32 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         return usernames
     }
 
+    fun verificarAlunosPorMacs(macs: Array<String>): Array<String> {
+        val db = this.readableDatabase
 
+        // Monta a cláusula WHERE usando a lista de MACs
+        val selection = "$COLUMN_ALUNO_MAC IN (${macs.joinToString { "'$it'" }})"
 
+        val cursor = db.query(
+            TABLE_ALUNOS,
+            arrayOf(COLUMN_ALUNO_ALUNO),
+            selection,
+            null,
+            null,
+            null,
+            null
+        )
 
+        val alunosEncontrados = mutableListOf<String>()
+
+        while (cursor.moveToNext()) {
+            val nomeAluno = cursor.getString(cursor.getColumnIndex(COLUMN_ALUNO_ALUNO))
+            alunosEncontrados.add(nomeAluno)
+        }
+
+        cursor.close()
+        db.close()
+
+        return alunosEncontrados.toTypedArray()
+    }
 }
