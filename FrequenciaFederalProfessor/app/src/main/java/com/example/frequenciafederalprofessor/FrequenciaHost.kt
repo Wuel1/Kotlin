@@ -128,7 +128,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                 val deviceClass = device.bluetoothClass
                 if (deviceClass != null) {
                     val majorDeviceClass = deviceClass.majorDeviceClass
-                    // 0x01 -> COMPUTADOR, 0x02 -> TELEFONE CELULAR
                     if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                         majorDeviceClass == BluetoothClass.Device.Major.PHONE
                     ) {
