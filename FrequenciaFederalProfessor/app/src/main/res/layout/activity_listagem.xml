@@ -31,32 +31,44 @@
 
     </LinearLayout>
     <TextView
-    android:id="@+id/NomeTabela"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Nome da tabela"
-    android:textColor="@color/white"
-    android:layout_gravity="center"
-    android:textSize="25sp"
-    android:layout_margin="10dp"
-    android:background="@drawable/bg_btn_2"
-    android:padding="10dp"/>
+        android:id="@+id/NomeTabela"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome da tabela"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_btn_2"
+        android:padding="10dp"/>
+    <Button
+        android:id="@+id/Atualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn"
+        android:padding="10dp"
+        android:textColor="#B41C2C4C"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Atualizar"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/bg_box">
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_whitebox">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:cacheColorHint="@color/white"
             android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:cacheColorHint="@color/white" />
+            android:textAlignment="center" />
 
     </LinearLayout>
 
