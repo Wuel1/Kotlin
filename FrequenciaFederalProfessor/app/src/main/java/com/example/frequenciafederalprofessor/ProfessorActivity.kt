@@ -20,7 +20,7 @@ class ProfessorActivity : AppCompatActivity() {
             finish()
         }
         binding.buttonCadeiras.setOnClickListener {
-            Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, CadeirasActivity::class.java))
         }
         binding.buttonHorarios.setOnClickListener {
             Toast.makeText(applicationContext,"Não Implementado", Toast.LENGTH_SHORT).show()
