@@ -30,5 +30,35 @@
             android:src="@drawable/ufrpe_cortado" />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Turma"
+            android:padding="10dp"
+            android:textColor="#B41C2C4C"
+            android:id="@+id/add_turma"
+            android:background="@drawable/bg_whitebox"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Remover Turma"
+            android:textColor="#B41C2C4C"
+            android:id="@+id/remove_turma"
+            android:background="@drawable/bg_whitebox"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

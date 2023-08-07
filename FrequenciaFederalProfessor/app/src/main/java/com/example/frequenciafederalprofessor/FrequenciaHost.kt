@@ -132,9 +132,9 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                         majorDeviceClass == BluetoothClass.Device.Major.PHONE
                     ) {
                         qt += 1
-                        val nomeDispositivo = device.name
+                        //val nomeDispositivo = device.name
                         //val enderecoDispositivo = device.address
-                        val deviceInfo = "\n${qt} Dispositivos Pareados\n"
+                        val deviceInfo = "${qt} Dispositivos Pareados"
                         binding.listaPareados.setText(deviceInfo)
                         binding.listaPareados.invalidate()
                     }

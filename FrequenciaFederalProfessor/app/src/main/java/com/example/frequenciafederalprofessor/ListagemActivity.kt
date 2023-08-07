@@ -31,6 +31,16 @@ class ListagemActivity : AppCompatActivity() {
 
         binding.NomeTabela.setText(obterNomeTabela())
 
+        binding.Atualizar.setOnClickListener {
+            try {
+                val dbHelper = DBHelper(this)
+                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(lista(bluetoothAdapter)) )
+                binding.listView.adapter = adapter
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.buttonVoltar.setOnClickListener {// Voltar
             finish()
         }

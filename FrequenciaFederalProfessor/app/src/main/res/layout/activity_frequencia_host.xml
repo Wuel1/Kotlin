@@ -161,6 +161,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_2"
             android:id="@+id/lista_pareados"
+            android:padding="10dp"
             android:gravity="center"
             android:text="0 Dispositivos Pareados"
             android:textColor="@color/white"
