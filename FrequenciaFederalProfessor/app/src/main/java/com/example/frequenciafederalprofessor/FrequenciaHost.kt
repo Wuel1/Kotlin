@@ -4,6 +4,7 @@ import com.example.frequenciafederalprofessor.db.DBHelper
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothClass
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -165,5 +166,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         val dataFormatada = formatoData.format(dataAtual)
         return "frequencia_$dataFormatada"
     }
+
 
 }
