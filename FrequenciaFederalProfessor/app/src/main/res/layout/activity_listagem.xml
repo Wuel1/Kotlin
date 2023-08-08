@@ -41,17 +41,39 @@
         android:layout_margin="10dp"
         android:background="@drawable/bg_btn_2"
         android:padding="10dp"/>
-    <Button
-        android:id="@+id/Atualizar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_btn"
-        android:padding="10dp"
-        android:textColor="#B41C2C4C"
-        android:layout_margin="10dp"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Atualizar"/>
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/Atualizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:padding="10dp"
+            android:textColor="#B41C2C4C"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Atualizar"/>
+
+        <Button
+            android:id="@+id/Exportar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn"
+            android:padding="10dp"
+            android:textColor="#B41C2C4C"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Exportar"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"

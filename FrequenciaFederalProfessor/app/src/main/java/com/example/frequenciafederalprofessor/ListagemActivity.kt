@@ -41,7 +41,7 @@ class ListagemActivity : AppCompatActivity() {
             }
         }
 
-        binding.buttonVoltar.setOnClickListener {// Voltar
+        binding.buttonVoltar.setOnClickListener {   // Voltar
             finish()
         }
         try {

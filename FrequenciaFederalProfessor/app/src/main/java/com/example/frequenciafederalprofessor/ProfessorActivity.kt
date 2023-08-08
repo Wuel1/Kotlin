@@ -16,6 +16,8 @@ class ProfessorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.nomeProfessor.setText("Wandson Emanuel\nDocente de Computação\nUFRPE | UABJ")
+
         binding.buttonVoltar.setOnClickListener {
             finish()
         }
