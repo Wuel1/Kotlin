@@ -39,9 +39,9 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, "frequenciadatabase.
         "INSERT INTO professor (username,password,mac) VALUES ('wandson.emanuel','12345','00:45:E2:6A:46:3C')",
 
         "CREATE TABLE alunos (Id INTEGER PRIMARY KEY AUTOINCREMENT, aluno TEXT, curso TEXT, mac TEXT, mac_2 TEXT, mac_3 TEXT)",
-        "INSERT INTO alunos (aluno,curso,mac) VALUES ('Wandson Emanuel','Engenharia da Computação','00:1B:10:00:2A:EC')",
+        "INSERT INTO alunos (aluno,curso,mac) VALUES ('Wandson Emanuel','Engenharia da Computação','00:45:E2:6A:46:3C')",
         "INSERT INTO alunos (aluno,curso,mac) VALUES ('Victor Almeida','Engenharia da Computação','48:87:59:11:8C:88')",
-        "INSERT INTO alunos (aluno,curso,mac) VALUES ('Pedro Henrique','Engenharia da Computação','00:45:E2:6A:46:3C')",
+        "INSERT INTO alunos (aluno,curso,mac) VALUES ('Pedro Henrique','Engenharia da Computação','7C:8B:B5:DF:A8:80')",
     )
 
     override fun onCreate(db: SQLiteDatabase) {
