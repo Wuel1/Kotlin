@@ -15,6 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -23,6 +25,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     lateinit var binding: ActivityFrequenciaHostBinding
     lateinit var bluetoothAdapter: BluetoothAdapter
     lateinit var timer: TimerHelper
+    private lateinit var dbRef: DatabaseReference
     var isTimerRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {

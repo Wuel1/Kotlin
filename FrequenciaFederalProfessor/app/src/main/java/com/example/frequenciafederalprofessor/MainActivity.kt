@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityMainBinding
 import com.example.frequenciafederalprofessor.db.DBHelper
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         binding =  ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

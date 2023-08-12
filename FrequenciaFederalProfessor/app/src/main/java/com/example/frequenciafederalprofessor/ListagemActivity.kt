@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
 import com.example.frequenciafederalprofessor.databinding.ActivityListagemBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -21,6 +23,7 @@ class ListagemActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityListagemBinding
     lateinit var bluetoothAdapter: BluetoothAdapter
+    private lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -28,6 +31,8 @@ class ListagemActivity : AppCompatActivity() {
         binding = ActivityListagemBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        dbRef = FirebaseDatabase.getInstance().getReference("frequencia")
 
         binding.NomeTabela.setText(obterNomeTabela())
 
@@ -44,12 +49,17 @@ class ListagemActivity : AppCompatActivity() {
         binding.buttonVoltar.setOnClickListener {   // Voltar
             finish()
         }
+
         try {
             val dbHelper = DBHelper(this)
             val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(lista(bluetoothAdapter)) )
             binding.listView.adapter = adapter
         } catch (e: Exception) {
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.Exportar.setOnClickListener {
+            exportar()
         }
     }
 
@@ -93,5 +103,20 @@ class ListagemActivity : AppCompatActivity() {
         val dataAtual = Date()
         val dataFormatada = formatoData.format(dataAtual)
         return "frequencia_$dataFormatada"
+    }
+
+    private fun exportar(){
+        val alunos = lista(bluetoothAdapter)
+        if (alunos.isEmpty()){
+            Toast.makeText(this,"Frenquencia Vázia", Toast.LENGTH_SHORT).show()
+        }else{
+            val idDB = dbRef.push().key!!
+            Toast.makeText(this,"passou", Toast.LENGTH_SHORT).show()
+            for(nome in alunos){
+                Toast.makeText(this,"Deu error", Toast.LENGTH_SHORT).show()
+                val exportar = ExportModel(idDB,nome)
+                dbRef.child(idDB).setValue(exportar)
+            }
+        }
     }
 }
