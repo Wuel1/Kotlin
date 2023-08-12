@@ -39,7 +39,7 @@ class ListagemActivity : AppCompatActivity() {
         binding.Atualizar.setOnClickListener {
             try {
                 val dbHelper = DBHelper(this)
-                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(lista(bluetoothAdapter)) )
+                val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter)) )
                 binding.listView.adapter = adapter
             } catch (e: Exception) {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -52,7 +52,7 @@ class ListagemActivity : AppCompatActivity() {
 
         try {
             val dbHelper = DBHelper(this)
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(lista(bluetoothAdapter)) )
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter)) )
             binding.listView.adapter = adapter
         } catch (e: Exception) {
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -65,7 +65,7 @@ class ListagemActivity : AppCompatActivity() {
 
 
 
-    fun lista(bluetoothAdapter: BluetoothAdapter): Array<String> {
+    fun listaMac(bluetoothAdapter: BluetoothAdapter): Array<String> {
         val pareados = if (ActivityCompat.checkSelfPermission(this,Manifest.permission.BLUETOOTH_CONNECT)
                            != PackageManager.PERMISSION_GRANTED){
             bluetoothAdapter.bondedDevices
@@ -86,6 +86,7 @@ class ListagemActivity : AppCompatActivity() {
         return usernamesList.toTypedArray()
     }
 
+
     //fun lista2(): Array<String> {
     //    val dbHelper = DBHelper(this)
     //    val usernamesList = dbHelper.listarUsernames()
@@ -98,24 +99,30 @@ class ListagemActivity : AppCompatActivity() {
         val dataFormatada = formatoData.format(dataAtual)
         return "$dataFormatada"
     }
-    fun obterNomeTabelaFrequencia(): String {
-        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
-        val dataAtual = Date()
-        val dataFormatada = formatoData.format(dataAtual)
-        return "frequencia_$dataFormatada"
-    }
 
+    //fun obterNomeTabelaFrequencia(): String {
+    //    val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
+    //    val dataAtual = Date()
+    //    val dataFormatada = formatoData.format(dataAtual)
+    //    return "frequencia_$dataFormatada"
+    //}
+    
     private fun exportar(){
-        val alunos = lista(bluetoothAdapter)
+        val dbHelper = DBHelper(this)
+        val alunos = dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter))
         if (alunos.isEmpty()){
             Toast.makeText(this,"Frenquencia Vázia", Toast.LENGTH_SHORT).show()
         }else{
             val idDB = dbRef.push().key!!
             Toast.makeText(this,"passou", Toast.LENGTH_SHORT).show()
             for(nome in alunos){
-                Toast.makeText(this,"Deu error", Toast.LENGTH_SHORT).show()
-                val exportar = ExportModel(idDB,nome)
+                val exportar = ExportModel(nome,obterNomeTabela())
                 dbRef.child(idDB).setValue(exportar)
+                    .addOnCompleteListener {
+                        Toast.makeText(this,"Frenquencia Exportada", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {erro ->
+                        Toast.makeText(this,"Error - ${erro}", Toast.LENGTH_SHORT).show()
+                    }
             }
         }
     }
