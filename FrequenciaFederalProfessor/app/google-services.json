@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "41413860910",
+    "project_id": "frequenciafederal-fc7ed",
+    "storage_bucket": "frequenciafederal-fc7ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41413860910:android:7f85d935af28e6cbfc49bf",
+        "android_client_info": {
+          "package_name": "com.example.frequenciafederalprofessor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41413860910-k0i72r0q5dpo9tf0qg9jndngl7oeo8lu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAU0vKqGTNbDQ7vDdG5nYhTk9R5qqyxEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41413860910-k0i72r0q5dpo9tf0qg9jndngl7oeo8lu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
