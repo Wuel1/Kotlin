@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class ListagemActivity : AppCompatActivity() {
 
@@ -114,11 +115,19 @@ class ListagemActivity : AppCompatActivity() {
         if (alunos.isEmpty()) {
             Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
         } else {
-            for (nome in alunos) {
-                val idDB = dbRef.push().key!! // Gera um novo ID exclusivo para cada aluno
-                val exportar = ExportModel(nome, obterNomeTabela())
+            val database = FirebaseDatabase.getInstance()
+            val dbRef = database.getReference("Frequencia")
 
-                dbRef.child(idDB).setValue(exportar)
+            val anoLetivo = "2022.2" // Substitua pelo ano letivo correto
+            val disciplina = "Projeto Interdisciplinar 2" // Substitua pela disciplina correta
+
+            val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+            for (nome in alunos) {
+                val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
+                val alunoRef = dbRef.child(anoLetivo).child(disciplina).child(data).child(alunoId)
+
+                alunoRef.setValue(true)
                     .addOnCompleteListener {
                         Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener { erro ->
@@ -127,4 +136,5 @@ class ListagemActivity : AppCompatActivity() {
             }
         }
     }
+
 }

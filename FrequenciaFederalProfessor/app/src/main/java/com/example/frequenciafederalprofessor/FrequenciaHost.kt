@@ -96,8 +96,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
 
     }
 
-
-
     private fun startTimer() {
         timer = TimerHelper(5 * 60 * 1000, 1000, this)
         timer.start()
