@@ -106,22 +106,23 @@ class ListagemActivity : AppCompatActivity() {
     //    val dataFormatada = formatoData.format(dataAtual)
     //    return "frequencia_$dataFormatada"
     //}
-    
-    private fun exportar(){
+
+    private fun exportar() {
         val dbHelper = DBHelper(this)
         val alunos = dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter))
-        if (alunos.isEmpty()){
-            Toast.makeText(this,"Frenquencia Vázia", Toast.LENGTH_SHORT).show()
-        }else{
-            val idDB = dbRef.push().key!!
-            Toast.makeText(this,"passou", Toast.LENGTH_SHORT).show()
-            for(nome in alunos){
-                val exportar = ExportModel(nome,obterNomeTabela())
+
+        if (alunos.isEmpty()) {
+            Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
+        } else {
+            for (nome in alunos) {
+                val idDB = dbRef.push().key!! // Gera um novo ID exclusivo para cada aluno
+                val exportar = ExportModel(nome, obterNomeTabela())
+
                 dbRef.child(idDB).setValue(exportar)
                     .addOnCompleteListener {
-                        Toast.makeText(this,"Frenquencia Exportada", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener {erro ->
-                        Toast.makeText(this,"Error - ${erro}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener { erro ->
+                        Toast.makeText(this, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
                     }
             }
         }
