@@ -32,7 +32,6 @@ class RegistrarActivity : AppCompatActivity() {
             if(!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password == confirmPassword){
                     val exportar = ExportProfessorModel(username,password)
-                    //val professorRef = dbRef.child("Professor").setValue(exportar)
                     dbRef.child("Professor").setValue(exportar)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
