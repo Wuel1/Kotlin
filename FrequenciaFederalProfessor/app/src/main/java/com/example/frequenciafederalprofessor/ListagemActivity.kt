@@ -120,7 +120,7 @@ class ListagemActivity : AppCompatActivity() {
             Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
         } else {
             val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("UFRPE")
+            val dbRef = database.getReference("PROFESSOR")
 
             val professorId = "Wandson"
             val anoLetivo = "2022-2" // Substitua pelo ano letivo correto
