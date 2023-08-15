@@ -119,9 +119,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn"
             android:text="Entrar"
+            android:textColor="#1c2c4c" />
+        <Button
+            android:id="@+id/button_registrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/bg_btn"
+            android:text="Registrar"
             android:textColor="#1c2c4c" />
 
 

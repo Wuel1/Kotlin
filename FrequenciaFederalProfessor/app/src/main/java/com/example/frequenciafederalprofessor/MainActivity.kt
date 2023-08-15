@@ -24,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         binding.buttonEntrar.setOnClickListener {
             conferir()
         }
+        binding.buttonRegistrar.setOnClickListener {
+            startActivity(Intent(this,RegistrarActivity::class.java))
+        }
     }
 
     private fun conferir() {
