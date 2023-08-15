@@ -60,7 +60,11 @@ class ListagemActivity : AppCompatActivity() {
         }
 
         binding.Exportar.setOnClickListener {
-            exportar()
+            try {
+                exportar()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -116,25 +120,26 @@ class ListagemActivity : AppCompatActivity() {
             Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
         } else {
             val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("Frequencia")
+            val dbRef = database.getReference("UFRPE")
 
-            val anoLetivo = "2022.2" // Substitua pelo ano letivo correto
+            val professorId = "Wandson"
+            val anoLetivo = "2022-2" // Substitua pelo ano letivo correto
             val disciplina = "Projeto Interdisciplinar 2" // Substitua pela disciplina correta
 
             val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
             for (nome in alunos) {
                 val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
-                val alunoRef = dbRef.child(anoLetivo).child(disciplina).child(data).child(alunoId)
+                val alunoRef = dbRef.child(professorId).child(anoLetivo).child(disciplina).child(data).child(alunoId)
 
                 alunoRef.setValue(true)
                     .addOnCompleteListener {
                         Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener { erro ->
+                    }
+                    .addOnFailureListener { erro ->
                         Toast.makeText(this, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
                     }
             }
         }
     }
-
 }

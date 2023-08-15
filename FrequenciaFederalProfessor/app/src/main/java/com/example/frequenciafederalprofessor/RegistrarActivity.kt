@@ -24,15 +24,15 @@ class RegistrarActivity : AppCompatActivity() {
 
         binding.registrar.setOnClickListener {
             val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("Frequencia")
+            val dbRef = database.getReference("UFRPE")
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
             val confirmPassword = binding.confirmPassword.text.toString()
 
             if(!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password == confirmPassword){
-                    val exportar = ExportProfessorModel(username,password)
-                    dbRef.child("Professor").setValue(exportar)
+                    val exportar = ExportProfessorModel(password)
+                    dbRef.child("Professor").child(username).setValue(exportar)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
                         } .addOnFailureListener { erro ->
