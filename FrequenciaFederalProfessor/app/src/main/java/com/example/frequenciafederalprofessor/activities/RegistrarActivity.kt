@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.models.ExportProfessorModel
 import com.example.frequenciafederalprofessor.databinding.ActivityRegistrarBinding
+import com.example.frequenciafederalprofessor.models.PasswordHasher
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -31,8 +32,9 @@ class RegistrarActivity : AppCompatActivity() {
 
             if(!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password == confirmPassword){
-                    val exportar = ExportProfessorModel(password)
-                    dbRef.child(username).setValue(password)
+                    val hashedSenha = PasswordHasher.hashPassword(password)
+                    val exportar = ExportProfessorModel(hashedSenha)
+                    dbRef.child(username).setValue(hashedSenha)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
                         } .addOnFailureListener { erro ->
