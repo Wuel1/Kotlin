@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:orientation="vertical"
-    tools:context=".FrequenciaHost">
+    tools:context=".activities.FrequenciaHost">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,14 +62,27 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="540dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/webview"/>
+<!--        <WebView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="540dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/webview"/>-->
+
+        <ListView
+            android:id="@+id/listView"
+            android:background="@drawable/bg_whitebox"
+            android:layout_margin="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:cacheColorHint="@color/white"
+            android:gravity="center_horizontal"
+            android:textAlignment="center" />
 
     </LinearLayout>
+
 
 </LinearLayout>

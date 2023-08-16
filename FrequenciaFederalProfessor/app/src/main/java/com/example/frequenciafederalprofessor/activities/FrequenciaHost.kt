@@ -1,10 +1,9 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import com.example.frequenciafederalprofessor.db.DBHelper
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothClass
-import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -14,9 +13,10 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.frequenciafederalprofessor.R
+import com.example.frequenciafederalprofessor.adapters.TimerHelper
 import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
 

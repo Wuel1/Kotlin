@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.models
 
 data class ExportProfessorModel(
     //var username: String? = null,

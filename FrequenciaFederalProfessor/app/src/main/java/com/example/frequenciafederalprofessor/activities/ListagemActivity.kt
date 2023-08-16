@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.frequenciafederalprofessor.databinding.ActivityFrequenciaHostBinding
 import com.example.frequenciafederalprofessor.databinding.ActivityListagemBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -92,25 +91,12 @@ class ListagemActivity : AppCompatActivity() {
     }
 
 
-    //fun lista2(): Array<String> {
-    //    val dbHelper = DBHelper(this)
-    //    val usernamesList = dbHelper.listarUsernames()
-    //    return usernamesList.toTypedArray()
-    //}
-
     fun obterNomeTabela(): String {
         val formatoData = SimpleDateFormat("dd/MM/yyyy | HH:mm:ss") // Define o formato desejado da data
         val dataAtual = Date()
         val dataFormatada = formatoData.format(dataAtual)
         return "$dataFormatada"
     }
-
-    //fun obterNomeTabelaFrequencia(): String {
-    //    val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
-    //    val dataAtual = Date()
-    //    val dataFormatada = formatoData.format(dataAtual)
-    //    return "frequencia_$dataFormatada"
-    //}
 
     private fun exportar() {
         val dbHelper = DBHelper(this)
@@ -120,26 +106,35 @@ class ListagemActivity : AppCompatActivity() {
             Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
         } else {
             val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("PROFESSOR")
+            val dbRef = database.getReference("FREQUENCIA")
 
             val professorId = "Wandson"
             val anoLetivo = "2022-2" // Substitua pelo ano letivo correto
-            val disciplina = "Projeto Interdisciplinar 2" // Substitua pela disciplina correta
+            val disciplina = "Arquitetura de Computadores" // Substitua pela disciplina correta
 
             val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
+            val professorRef = dbRef.child(professorId)
+            val anoLetivoRef = professorRef.child(anoLetivo)
+            val disciplinaRef = anoLetivoRef.child(disciplina)
+            val dataRef = disciplinaRef.child(data)
+
+            val updates = HashMap<String, Any?>() // Crie um mapa para as atualizações
+
             for (nome in alunos) {
                 val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
-                val alunoRef = dbRef.child(professorId).child(anoLetivo).child(disciplina).child(data).child(alunoId)
-
-                alunoRef.setValue(true)
-                    .addOnCompleteListener {
-                        Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener { erro ->
-                        Toast.makeText(this, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
-                    }
+                updates["$alunoId"] = true
             }
+
+            // Use updateChildren() para verificar e atualizar nós existentes
+            dataRef.updateChildren(updates)
+                .addOnCompleteListener {
+                    Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { erro ->
+                    Toast.makeText(this, "Erro - $erro", Toast.LENGTH_SHORT).show()
+                }
         }
     }
+
 }

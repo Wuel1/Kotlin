@@ -1,10 +1,11 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.example.frequenciafederalprofessor.R
 
 class SplashScreen : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         },1000)
     }

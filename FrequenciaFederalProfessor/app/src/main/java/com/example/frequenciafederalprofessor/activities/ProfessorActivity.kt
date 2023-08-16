@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

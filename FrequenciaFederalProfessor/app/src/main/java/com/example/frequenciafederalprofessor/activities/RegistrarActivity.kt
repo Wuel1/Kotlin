@@ -1,9 +1,9 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.frequenciafederalprofessor.databinding.ActivityMainBinding
+import com.example.frequenciafederalprofessor.models.ExportProfessorModel
 import com.example.frequenciafederalprofessor.databinding.ActivityRegistrarBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -24,7 +24,7 @@ class RegistrarActivity : AppCompatActivity() {
 
         binding.registrar.setOnClickListener {
             val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("UFRPE")
+            val dbRef = database.getReference("PROFESSOR")
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
             val confirmPassword = binding.confirmPassword.text.toString()
@@ -32,7 +32,7 @@ class RegistrarActivity : AppCompatActivity() {
             if(!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password == confirmPassword){
                     val exportar = ExportProfessorModel(password)
-                    dbRef.child("Professor").child(username).setValue(exportar)
+                    dbRef.child(username).setValue(password)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
                         } .addOnFailureListener { erro ->

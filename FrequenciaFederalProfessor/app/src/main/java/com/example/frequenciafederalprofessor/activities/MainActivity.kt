@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityMainBinding
 import com.example.frequenciafederalprofessor.db.DBHelper
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             conferir()
         }
         binding.buttonRegistrar.setOnClickListener {
-            startActivity(Intent(this,RegistrarActivity::class.java))
+            startActivity(Intent(this, RegistrarActivity::class.java))
         }
     }
 

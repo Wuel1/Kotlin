@@ -1,4 +1,4 @@
-package com.example.frequenciafederalprofessor
+package com.example.frequenciafederalprofessor.adapters
 
 import android.os.CountDownTimer
 
