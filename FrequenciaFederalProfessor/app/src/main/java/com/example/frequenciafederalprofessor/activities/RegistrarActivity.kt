@@ -37,6 +37,9 @@ class RegistrarActivity : AppCompatActivity() {
                     dbRef.child(username).setValue(hashedSenha)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
+                            binding.username.text.clear()
+                            binding.password.text.clear()
+                            binding.confirmPassword.text.clear()
                         } .addOnFailureListener { erro ->
                             Toast.makeText(this, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
                         }

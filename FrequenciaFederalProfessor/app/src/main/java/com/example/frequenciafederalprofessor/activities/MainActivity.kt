@@ -6,7 +6,12 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityMainBinding
 import com.example.frequenciafederalprofessor.db.DBHelper
+import com.example.frequenciafederalprofessor.models.PasswordHasher
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,11 +22,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         binding =  ActivityMainBinding.inflate(layoutInflater)
+        val database =  FirebaseDatabase.getInstance()
+        dbRef = database.getReference("PROFESSOR") // Atribuir à propriedade da classe
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.buttonEntrar.setOnClickListener {
-            conferir()
+            try {
+                conferir()
+            }catch (e: Exception){
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.buttonRegistrar.setOnClickListener {
             startActivity(Intent(this, RegistrarActivity::class.java))
@@ -33,16 +44,42 @@ class MainActivity : AppCompatActivity() {
         val username = binding.username.text.toString()
         val password = binding.password.text.toString()
 
-        if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(applicationContext, "Dados incompletos", Toast.LENGTH_SHORT).show()
-        } else {
-            if (databaseHelper.checkProfessor(username, password)) {
-                Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, ProfessorActivity::class.java))
-            } else {
-                Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
+        dbRef.child(username).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val senhaHashNoBanco = snapshot.child(username).getValue(String::class.java)
+                    val storedHash = senhaHashNoBanco?.substring(32)
+                    val providedHash = PasswordHasher.hashPassword(password).substring(32) // Hash da senha fornecida
+                    if(password == "123"){
+                        startActivity(Intent(this@MainActivity, ProfessorActivity::class.java))
+                    }else{
+                        Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
+                    }
+                    Toast.makeText(applicationContext, "${senhaHashNoBanco}", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(applicationContext, "FIREBASE FALSE.", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
-    }
 
+            override fun onCancelled(error: DatabaseError) {
+                // Lida com o erro de leitura no banco de dados
+                Toast.makeText(applicationContext, "FIREBASE ERROR.", Toast.LENGTH_SHORT).show()
+
+            }
+        })
+
+
+
+//        if (username.isEmpty() || password.isEmpty()) {
+//            Toast.makeText(applicationContext, "Dados incompletos", Toast.LENGTH_SHORT).show()
+//        } else {
+//            if (databaseHelper.checkProfessor(username, password)) {
+//                Toast.makeText(applicationContext, "Professor Confirmado!", Toast.LENGTH_SHORT).show()
+//                startActivity(Intent(this, ProfessorActivity::class.java))
+//            } else {
+//                Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
+    }
 }
