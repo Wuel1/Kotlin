@@ -22,8 +22,8 @@ class CadeirasActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityCadeirasBinding.inflate(layoutInflater)
-        val database = FirebaseDatabase.getInstance()
-        dbRef = database.getReference("PROFESSOR")
+        val database =  FirebaseDatabase.getInstance()
+        dbRef = database.getReference("FREQUENCIA")
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -40,13 +40,12 @@ class CadeirasActivity : AppCompatActivity() {
         val professorId = "Wandson"
         val anoLetivo = "2022-2"
 
-        val professorRef = dbRef.child("FREQUENCIA").child(professorId)
+        val professorRef = dbRef.child(professorId)
         val anoLetivoRef = professorRef.child(anoLetivo)
         anoLetivoRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Aqui você pode acessar os dados lidos do banco de dados
                 for (disciplinaSnapshot in dataSnapshot.children) {
-                    val disciplinaNome = disciplinaSnapshot.value.toString()
+                    val disciplinaNome = disciplinaSnapshot.key.toString()
                     disciplinasList.add(disciplinaNome!!)
                 }
                 callback(disciplinasList.toTypedArray())
