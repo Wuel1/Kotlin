@@ -110,7 +110,7 @@ class ListagemActivity : AppCompatActivity() {
 
             val professorId = "Wandson"
             val anoLetivo = "2022-2" // Substitua pelo ano letivo correto
-            val disciplina = "Arquitetura de Computadores" // Substitua pela disciplina correta
+            val disciplina = "correria" // Substitua pela disciplina correta
 
             val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 

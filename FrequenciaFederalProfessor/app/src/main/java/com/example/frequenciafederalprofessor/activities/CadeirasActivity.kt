@@ -1,6 +1,7 @@
 package com.example.frequenciafederalprofessor.activities
 
 import android.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -28,6 +29,10 @@ class CadeirasActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         list()
+
+        binding.addTurma.setOnClickListener {
+            startActivity(Intent(this,AddCadeiraActivity::class.java))
+        }
 
         binding.buttonVoltar.setOnClickListener {
             finish() // Voltar
@@ -69,4 +74,5 @@ class CadeirasActivity : AppCompatActivity() {
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

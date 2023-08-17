@@ -19,6 +19,9 @@
         android:theme="@style/Theme.FrequênciaFederalProfessor"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AddCadeiraActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.RegistrarActivity"
             android:exported="false" />
         <activity
