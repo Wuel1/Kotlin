@@ -48,9 +48,8 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val senhaHashNoBanco = snapshot.child(username).getValue(String::class.java)
-                    val storedHash = senhaHashNoBanco?.substring(32)
-                    val providedHash = PasswordHasher.hashPassword(password).substring(32) // Hash da senha fornecida
-                    if(password == "123"){
+                    val hashedSenha = PasswordHasher.hashPassword(password)// Hash da senha fornecida
+                    if(hashedSenha == senhaHashNoBanco){
                         startActivity(Intent(this@MainActivity, ProfessorActivity::class.java))
                     }else{
                         Toast.makeText(applicationContext, "Usuário não encontrado, tente novamente.", Toast.LENGTH_SHORT).show()
