@@ -28,4 +28,31 @@ object PasswordHasher {
         }
         return result.toString()
     }
+
+    fun hashPasswordWithSalt(password: String, salt: String): String {
+        val saltBytes = salt.hexStringToByteArray()
+        val factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
+        val spec = PBEKeySpec(password.toCharArray(), saltBytes, ITERATIONS, 256)
+        val hash = factory.generateSecret(spec).encoded
+
+        return salt + hash.toHexString()
+    }
+
+    private fun String.hexStringToByteArray(): ByteArray {
+        val len = length
+        val data = ByteArray(len / 2)
+        var i = 0
+        while (i < len) {
+            data[i / 2] = ((Character.digit(this[i], 16) shl 4) + Character.digit(this[i + 1], 16)).toByte()
+            i += 2
+        }
+        return data
+    }
+
+    fun verifyPassword(inputPassword: String, storedHashWithSalt: String, storedSalt: String): Boolean {
+        val storedHash = storedHashWithSalt.substring(SALT_LENGTH * 2)
+        val generatedHash = hashPasswordWithSalt(inputPassword, storedSalt)
+
+        return generatedHash == storedHash
+    }
 }

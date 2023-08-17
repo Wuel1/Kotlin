@@ -32,8 +32,8 @@ class RegistrarActivity : AppCompatActivity() {
 
             if(!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
                 if(password == confirmPassword){
-                    val hashedSenha = PasswordHasher.hashPassword(password)
-                    val exportar = ExportProfessorModel(hashedSenha)
+                    val hashedSenha = PasswordHasher.hashPasswordWithSalt(password,"16")
+                    //val exportar = ExportProfessorModel(hashedSenha)
                     dbRef.child(username).setValue(hashedSenha)
                         .addOnCompleteListener {
                             Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
