@@ -36,36 +36,26 @@ class AddCadeiraActivity : AppCompatActivity() {
 
         binding.registrar.setOnClickListener {
             Toast.makeText(this,"Clicado",Toast.LENGTH_SHORT).show()
-            registrar()
+            registrarCadeira()
         }
 
     }
 
-    fun registrar(){
-        //registrar cadeira no banco de dados
-        binding.optionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val cadeira = binding.Cadeira.text.toString()
-                val periodo = binding.optionsSpinner.selectedItem.toString()
-                val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    fun registrarCadeira() {
+        val cadeira = binding.Cadeira.text.toString()
+        val periodo = binding.optionsSpinner.selectedItem.toString()
+        val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-                if(!cadeira.isEmpty() && !periodo.isEmpty()){
-                    dbRef.child("Wandson").child(periodo).child(cadeira).child(data).setValue(true)
-                        .addOnCompleteListener{
-                            Toast.makeText(this@AddCadeiraActivity,"Sucesso",Toast.LENGTH_SHORT).show()
-                        }.addOnFailureListener { erro ->
-                            Toast.makeText(this@AddCadeiraActivity, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
-                        }
-                }else{
-                    Toast.makeText(this@AddCadeiraActivity,"Alguns campos precisam ser Preenchidos", Toast.LENGTH_SHORT).show()
+        if (!cadeira.isEmpty() && !periodo.isEmpty()) {
+            dbRef.child("Wandson").child(periodo).child(cadeira).child(data).setValue(true)
+                .addOnCompleteListener {
+                    Toast.makeText(this@AddCadeiraActivity, "Sucesso", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener { erro ->
+                    Toast.makeText(this@AddCadeiraActivity, "Erro - ${erro}", Toast.LENGTH_SHORT).show()
                 }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(applicationContext, "Error, nenhum período identificado", Toast.LENGTH_SHORT).show()
-            }
+        } else {
+            Toast.makeText(this@AddCadeiraActivity, "Alguns campos precisam ser preenchidos", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     fun listagem(callback: (Array<String>) -> Unit) {
