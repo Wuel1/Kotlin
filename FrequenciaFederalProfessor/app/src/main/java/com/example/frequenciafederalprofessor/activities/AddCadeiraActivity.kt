@@ -35,7 +35,6 @@ class AddCadeiraActivity : AppCompatActivity() {
         }
 
         binding.registrar.setOnClickListener {
-            Toast.makeText(this,"Clicado",Toast.LENGTH_SHORT).show()
             registrarCadeira()
         }
 

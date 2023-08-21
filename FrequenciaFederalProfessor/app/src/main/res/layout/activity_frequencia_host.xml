@@ -175,17 +175,6 @@
         android:gravity="center"
         android:layout_gravity="center">
 
-        <Spinner
-            android:id="@+id/options_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginVertical="35sp"
-            android:textAlignment="center"
-            android:background="@drawable/bg_whitebox"
-            android:padding="10sp"
-            android:layout_marginHorizontal="30dp"/>
 
         <Button
             android:layout_width="150dp"
@@ -194,7 +183,7 @@
             android:textColor="#B41C2C4C"
             android:background="@drawable/bg_btn"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginVertical="40dp"
+            android:layout_marginVertical="80dp"
             android:id="@+id/listagem"/>
 
 

@@ -44,11 +44,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothAdapter = bluetoothManager.adapter
 
-        try {
-            list()
-        }catch (e: Exception){
-            Toast.makeText(this, "${e}", Toast.LENGTH_SHORT).show()
-        }
 
         // Conferindo se pode se conseguir acesso ao Bluetooth
         conferir(bluetoothManager, bluetoothAdapter)
@@ -170,44 +165,6 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
     }
-
-    fun listagem(callback: (Array<String>) -> Unit) {
-        val disciplinasList = mutableListOf<String>()
-        Toast.makeText(this@FrequenciaHost, "entrou", Toast.LENGTH_SHORT).show()
-        val professorId = "Wandson"
-        val anoLetivo = "2022-2"
-
-        val professorRef = dbRef.child(professorId)
-        val anoLetivoRef = professorRef.child(anoLetivo)
-        anoLetivoRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (disciplinaSnapshot in dataSnapshot.children) {
-                    val disciplinaNome = disciplinaSnapshot.key.toString()
-                    disciplinasList.add(disciplinaNome!!)
-                }
-                callback(disciplinasList.toTypedArray())
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Aqui você pode tratar erros que possam ocorrer ao ler os dados
-                Toast.makeText(this@FrequenciaHost, "${databaseError.message}", Toast.LENGTH_SHORT).show()
-                callback(emptyArray())
-            }
-        })
-    }
-
-    fun list(){
-        try {
-            listagem { disciplinasArray ->
-                val adapter = ArrayAdapter(this,
-                    android.R.layout.simple_list_item_1, disciplinasArray)
-                binding.optionsSpinner.adapter = adapter
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-        }
-    }
-
 
     fun saveSharedPref(nome: String){
         val sharedPref = getPreferences(Context.MODE_PRIVATE)?: return

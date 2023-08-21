@@ -13,8 +13,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.frequenciafederalprofessor.databinding.ActivityListagemBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -51,11 +54,12 @@ class ListagemActivity : AppCompatActivity() {
         }
 
         try {
+            list()
             val dbHelper = DBHelper(this)
             val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter)) )
             binding.listView.adapter = adapter
         } catch (e: Exception) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Error, ${e}", Toast.LENGTH_SHORT).show()
         }
 
         binding.Exportar.setOnClickListener {
@@ -110,7 +114,7 @@ class ListagemActivity : AppCompatActivity() {
 
             val professorId = "Wandson"
             val anoLetivo = "2022-2" // Substitua pelo ano letivo correto
-            val disciplina = "correria" // Substitua pela disciplina correta
+            val disciplina = binding.optionsSpinner.selectedItem.toString()
 
             val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
@@ -125,8 +129,6 @@ class ListagemActivity : AppCompatActivity() {
                 val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
                 updates["$alunoId"] = true
             }
-
-            // Use updateChildren() para verificar e atualizar nós existentes
             dataRef.updateChildren(updates)
                 .addOnCompleteListener {
                     Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
@@ -136,4 +138,41 @@ class ListagemActivity : AppCompatActivity() {
                 }
         }
     }
+
+    fun listagem(callback: (Array<String>) -> Unit) {
+        val disciplinasList = mutableListOf<String>()
+        val professorId = "Wandson"
+        val anoLetivo = "2022-2"
+
+        val professorRef = dbRef.child(professorId)
+        val anoLetivoRef = professorRef.child(anoLetivo)
+        anoLetivoRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (disciplinaSnapshot in dataSnapshot.children) {
+                    val disciplinaNome = disciplinaSnapshot.key.toString()
+                    disciplinasList.add(disciplinaNome!!)
+                }
+                callback(disciplinasList.toTypedArray())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Aqui você pode tratar erros que possam ocorrer ao ler os dados
+                Toast.makeText(this@ListagemActivity, "${databaseError.message}", Toast.LENGTH_SHORT).show()
+                callback(emptyArray())
+            }
+        })
+    }
+
+    fun list(){
+        try {
+            listagem { disciplinasArray ->
+                val adapter = ArrayAdapter(this,
+                    android.R.layout.simple_list_item_1, disciplinasArray)
+                binding.optionsSpinner.adapter = adapter
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

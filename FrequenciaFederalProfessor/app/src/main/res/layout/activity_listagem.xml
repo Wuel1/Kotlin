@@ -41,6 +41,19 @@
         android:layout_margin="10dp"
         android:background="@drawable/bg_btn_2"
         android:padding="10dp"/>
+
+    <Spinner
+        android:id="@+id/options_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginVertical="5dp"
+        android:textAlignment="center"
+        android:background="@drawable/bg_whitebox"
+        android:padding="10sp"
+        android:layout_marginHorizontal="30dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
