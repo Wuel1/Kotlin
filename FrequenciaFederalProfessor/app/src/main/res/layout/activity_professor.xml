@@ -112,6 +112,19 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/periodoLetivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginVertical="35sp"
+        android:textAlignment="center"
+        android:background="@drawable/bg_whitebox"
+        android:padding="10sp"
+        android:layout_marginHorizontal="30dp"/>
+
+
     <!-- <Button
         android:id="@+id/button_voltar"
         android:layout_width="wrap_content"

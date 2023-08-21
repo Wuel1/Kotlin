@@ -32,7 +32,7 @@ class ListagemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        dbRef = FirebaseDatabase.getInstance().getReference("frequencia")
+        dbRef = FirebaseDatabase.getInstance().getReference("FREQUENCIA")
 
         binding.NomeTabela.setText(obterNomeTabela())
 
@@ -136,5 +136,4 @@ class ListagemActivity : AppCompatActivity() {
                 }
         }
     }
-
 }
