@@ -4,6 +4,8 @@ import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityProfessorBinding
@@ -29,14 +31,21 @@ class ProfessorActivity : AppCompatActivity() {
 
         try {
             list()
-            if (!binding.periodoLetivo.selectedItem.toString().isEmpty()){
-                val PeriodoSelecionado = binding.periodoLetivo.selectedItem.toString()
+            binding.periodoLetivo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    // A ação que você deseja executar quando uma opção for selecionada
+                    val selectedItem = binding.periodoLetivo.selectedItem.toString()
+                    // Faça algo com a opção selecionada, como exibir em um Toast
+                    Toast.makeText(applicationContext, "Selecionado: $selectedItem", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Toast.makeText(applicationContext, "Error, nenhum período identificado", Toast.LENGTH_SHORT).show()
+                }
             }
         }catch (e: Exception){
             Toast.makeText(this,"${e}",Toast.LENGTH_SHORT).show()
         }
-
-
 
         binding.nomeProfessor.setText("Wandson Emanuel\nDocente de Computação\nUFRPE | UABJ")
 
@@ -59,7 +68,6 @@ class ProfessorActivity : AppCompatActivity() {
 
     fun listagem(callback: (Array<String>) -> Unit) {
         val disciplinasList = mutableListOf<String>()
-        Toast.makeText(this@ProfessorActivity, "entrou", Toast.LENGTH_SHORT).show()
         val professorId = "Wandson"
 
         val professorRef = dbRef.child(professorId)
