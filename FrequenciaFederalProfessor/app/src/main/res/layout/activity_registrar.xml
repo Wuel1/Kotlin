@@ -60,6 +60,7 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@."
             android:layout_margin="5dp"
             android:textColor="@color/white"
+            android:inputType="textEmailAddress"
             android:hint="Email"
             android:textColorHint="#41FFFFFF"
             android:padding="10sp"/>
@@ -69,10 +70,9 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
             android:layout_margin="5dp"
             android:textColor="@color/white"
-            android:hint="Username"
+            android:hint="Nome e Sobrenome"
             android:textColorHint="#41FFFFFF"
             android:padding="10sp"/>
 
