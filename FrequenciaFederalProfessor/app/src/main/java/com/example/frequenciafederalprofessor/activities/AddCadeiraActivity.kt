@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityAddCadeiraBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -43,10 +44,12 @@ class AddCadeiraActivity : AppCompatActivity() {
     fun registrarCadeira() {
         val cadeira = binding.Cadeira.text.toString()
         val periodo = binding.optionsSpinner.selectedItem.toString()
+        val user = FirebaseAuth.getInstance().currentUser
+        val username = user?.displayName.toString()
         val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         if (!cadeira.isEmpty() && !periodo.isEmpty()) {
-            dbRef.child("Wandson").child(periodo).child(cadeira).child(data).setValue(true)
+            dbRef.child(username).child(periodo).child(cadeira).child(data).setValue(true)
                 .addOnCompleteListener {
                     Toast.makeText(this@AddCadeiraActivity, "Sucesso", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener { erro ->
@@ -59,9 +62,9 @@ class AddCadeiraActivity : AppCompatActivity() {
 
     fun listagem(callback: (Array<String>) -> Unit) {
         val disciplinasList = mutableListOf<String>()
-        Toast.makeText(this@AddCadeiraActivity, "entrou", Toast.LENGTH_SHORT).show()
-        val professorId = "Wandson"
-        val professorRef = dbRef.child(professorId)
+        val user = FirebaseAuth.getInstance().currentUser
+        val username = user?.displayName.toString()
+        val professorRef = dbRef.child(username)
         professorRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (disciplinaSnapshot in dataSnapshot.children) {

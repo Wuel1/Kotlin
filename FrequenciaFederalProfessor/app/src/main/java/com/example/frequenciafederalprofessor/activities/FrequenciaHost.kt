@@ -73,32 +73,44 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         }
 
         binding.PareadosBluetooth.setOnClickListener { // Inicia o Timer, e verifica se o bluetooth está desligado
-            if(!bluetoothAdapter.isEnabled){
-                Toast.makeText(this, "Por favor, ligue o Bluetooth para começar a chamada", Toast.LENGTH_SHORT).show()
-            } else if (!isTimerRunning) {
-                startTimer()
-                val discoverableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
-                    putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
-                }
-                startActivity(discoverableIntent)
-                listaPareados(bluetoothAdapter)
-            } else{
-                Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
-            }
+            mostrapareados()
         }
 
         binding.Atualizar.setOnClickListener {
-            if(isTimerRunning){
-                listaPareados(bluetoothAdapter)
-            }else{
-                Toast.makeText(this, "Frequência não está em execução", Toast.LENGTH_SHORT).show()
-            }
+            atualizaTimer()
         }
 
         binding.listagem.setOnClickListener {
             startActivity(Intent(this, ListagemActivity::class.java))
         }
 
+    }
+
+    private fun atualizaTimer() {
+        if (isTimerRunning) {
+            listaPareados(bluetoothAdapter)
+        } else {
+            Toast.makeText(this, "Frequência não está em execução", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun mostrapareados() {
+        if (!bluetoothAdapter.isEnabled) {
+            Toast.makeText(
+                this,
+                "Por favor, ligue o Bluetooth para começar a chamada",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (!isTimerRunning) {
+            startTimer()
+            val discoverableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
+                putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
+            }
+            startActivity(discoverableIntent)
+            listaPareados(bluetoothAdapter)
+        } else {
+            Toast.makeText(this, "Frequencia já está em execução", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun startTimer() {
@@ -166,24 +178,4 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         isTimerRunning = false
     }
 
-    fun saveSharedPref(nome: String){
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)?: return
-        with(sharedPref.edit()){
-            putString("Cadeiras",nome)
-            apply()
-        }
-    }
-
-    fun getSharedPref(): String?{
-        val SharedPref = getPreferences(Context.MODE_PRIVATE)
-        return SharedPref.getString("Cadeiras", null)
-    }
-
 }
-
-//    fun obterNomeTabelaFrequencia(): String {
-//        val formatoData = SimpleDateFormat("yyyyMMdd_HHmmss") // Define o formato desejado da data
-//        val dataAtual = Date()
-//        val dataFormatada = formatoData.format(dataAtual)
-//        return "frequencia_$dataFormatada"
-//    }

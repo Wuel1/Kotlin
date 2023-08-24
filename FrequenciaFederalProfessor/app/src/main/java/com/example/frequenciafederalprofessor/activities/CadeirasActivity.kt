@@ -28,8 +28,8 @@ class CadeirasActivity : AppCompatActivity() {
         dbRef = database.getReference("FREQUENCIA")
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         listPeriodo()
+
         binding.Atualizar.setOnClickListener {
             try {
                 list()
