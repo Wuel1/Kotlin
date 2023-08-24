@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityCadeirasBinding
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,7 +20,6 @@ class CadeirasActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityCadeirasBinding
     private lateinit var dbRef: DatabaseReference
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityCadeirasBinding.inflate(layoutInflater)

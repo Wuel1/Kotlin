@@ -53,6 +53,18 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/email"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@."
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:hint="Email"
+            android:textColorHint="#41FFFFFF"
+            android:padding="10sp"/>
+
+        <EditText
             android:id="@+id/username"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -63,24 +75,26 @@
             android:hint="Username"
             android:textColorHint="#41FFFFFF"
             android:padding="10sp"/>
+
         <EditText
             android:id="@+id/password"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@"
             android:inputType="textPassword"
             android:layout_margin="5dp"
             android:textColor="@color/white"
             android:hint="Password"
             android:textColorHint="#41FFFFFF"
             android:padding="10sp"/>
+
         <EditText
             android:id="@+id/confirmPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@"
             android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_margin="5dp"
