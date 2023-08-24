@@ -8,6 +8,9 @@ import com.example.frequenciafederalprofessor.databinding.ActivityMainBinding
 import com.example.frequenciafederalprofessor.db.DBHelper
 import com.example.frequenciafederalprofessor.models.PasswordHasher
 import com.example.frequenciafederalprofessor.models.PasswordHasher.verifyPassword
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var dbRef: DatabaseReference
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -30,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonEntrar.setOnClickListener {
             try {
-                conferir()
+                conferirFirebase()
             }catch (e: Exception){
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
@@ -40,8 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun conferir() {
-        val databaseHelper = DBHelper(this)
+    private fun conferirTabela() {
         val username = binding.username.text.toString()
         val password = binding.password.text.toString()
 
@@ -67,7 +70,31 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
 
+    private fun conferirFirebase() {
+        val email = binding.username.text.toString()
+        val password = binding.password.text.toString()
+
+        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener{ sign ->
+            if(sign.isSuccessful){
+                startActivity(Intent(this@MainActivity, ProfessorActivity::class.java))
+                limparCampos()
+            }
+        }.addOnFailureListener{ error ->
+            val mensagemError = when(error){
+                is FirebaseNetworkException -> "Sem conexão com a internet"
+                is FirebaseAuthInvalidCredentialsException -> "Senha incorreta. Tente novamente"
+                else -> "Usuário não encontrado. Tente novamente"
+            }
+            Toast.makeText(applicationContext, "${mensagemError}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun limparCampos() {
+        binding.username.text.clear()
+        binding.password.text.clear()
+    }
 
 
 //        if (username.isEmpty() || password.isEmpty()) {
@@ -81,5 +108,5 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-    }
+
 }

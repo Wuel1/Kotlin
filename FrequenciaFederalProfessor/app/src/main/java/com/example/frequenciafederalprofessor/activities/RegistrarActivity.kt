@@ -6,7 +6,11 @@ import android.widget.Toast
 import com.example.frequenciafederalprofessor.models.ExportProfessorModel
 import com.example.frequenciafederalprofessor.databinding.ActivityRegistrarBinding
 import com.example.frequenciafederalprofessor.models.PasswordHasher
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -72,11 +76,20 @@ class RegistrarActivity : AppCompatActivity() {
         if (!username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
             if(caracteres(password) >= 6){
                 if (password == confirmPassword) {
-                    auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{
-                        Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
-                        limparCampos()
+                    auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{ cadastro ->
+                        if(cadastro.isSuccessful){
+                            Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
+                            limparCampos()
+                        }
                     }.addOnFailureListener { error ->
-                        Toast.makeText(this, "Erro - ${error}", Toast.LENGTH_SHORT).show()
+                        val mensagemDeError = when(error){
+                            is FirebaseAuthWeakPasswordException -> "Digite uma senha de no minimo 6 Caracteres"
+                            is FirebaseAuthInvalidCredentialsException -> "Digite um Email válido"
+                            is FirebaseAuthUserCollisionException -> "Email já cadastrado"
+                            is FirebaseNetworkException -> "Sem conexão com a internet"
+                            else -> "Error ao cadastrar o Usuário"
+                        }
+                        Toast.makeText(this, "${mensagemDeError}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this,"As senhas não são iguais, por favor, digite novamente", Toast.LENGTH_SHORT).show()
