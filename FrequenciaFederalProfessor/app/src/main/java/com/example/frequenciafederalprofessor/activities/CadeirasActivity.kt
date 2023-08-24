@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.frequenciafederalprofessor.databinding.ActivityCadeirasBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -28,7 +29,15 @@ class CadeirasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        list()
+        listPeriodo()
+        binding.Atualizar.setOnClickListener {
+            try {
+                list()
+            }catch (e: Exception){
+                Toast.makeText(this@CadeirasActivity, "${e}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         binding.addTurma.setOnClickListener {
             startActivity(Intent(this,AddCadeiraActivity::class.java))
@@ -41,9 +50,10 @@ class CadeirasActivity : AppCompatActivity() {
 
     fun listagem(callback: (Array<String>) -> Unit) {
         val disciplinasList = mutableListOf<String>()
-        Toast.makeText(this@CadeirasActivity, "entrou", Toast.LENGTH_SHORT).show()
-        val professorId = "Wandson"
-        val anoLetivo = "2022-2"
+        val user = FirebaseAuth.getInstance().currentUser
+        val username = user?.displayName.toString()
+        val professorId = username
+        val anoLetivo = binding.optionsSpinner.selectedItem.toString()
 
         val professorRef = dbRef.child(professorId)
         val anoLetivoRef = professorRef.child(anoLetivo)
@@ -75,4 +85,38 @@ class CadeirasActivity : AppCompatActivity() {
         }
     }
 
+    fun listagemPeriodo(callback: (Array<String>) -> Unit) {
+        val disciplinasList = mutableListOf<String>()
+        val user = FirebaseAuth.getInstance().currentUser
+        val username = user?.displayName.toString()
+        val professorId = username
+        val professorRef = dbRef.child(professorId)
+        professorRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (disciplinaSnapshot in dataSnapshot.children) {
+                    val disciplinaNome = disciplinaSnapshot.key.toString()
+                    disciplinasList.add(disciplinaNome!!)
+                }
+                callback(disciplinasList.toTypedArray())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Aqui você pode tratar erros que possam ocorrer ao ler os dados
+                Toast.makeText(this@CadeirasActivity, "${databaseError.message}", Toast.LENGTH_SHORT).show()
+                callback(emptyArray())
+            }
+        })
+    }
+
+    fun listPeriodo(){
+        try {
+            listagemPeriodo { disciplinasArray ->
+                val adapter = ArrayAdapter(this,
+                    R.layout.simple_list_item_1, disciplinasArray)
+                binding.optionsSpinner.adapter = adapter
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

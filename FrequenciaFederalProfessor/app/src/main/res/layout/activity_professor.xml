@@ -54,14 +54,14 @@
         android:padding="5dp"
         android:background="@drawable/bg_btn_2"
         android:gravity="center"
-        android:text="Fulaninho Neto\nDocente de Computação\nUFRPE | UABJ"
         android:textColor="@color/white"
         android:id="@+id/nome_professor"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="135dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
 
         <Button
             android:id="@+id/button_cadeiras"
@@ -112,17 +112,17 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/periodoLetivo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginVertical="35sp"
-        android:textAlignment="center"
-        android:background="@drawable/bg_whitebox"
-        android:padding="10sp"
-        android:layout_marginHorizontal="30dp"/>
+<!--    <Spinner-->
+<!--        android:id="@+id/periodoLetivo"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginVertical="35sp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:background="@drawable/bg_whitebox"-->
+<!--        android:padding="10sp"-->
+<!--        android:layout_marginHorizontal="30dp"/>-->
 
 
     <!-- <Button

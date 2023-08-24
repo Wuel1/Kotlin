@@ -61,8 +61,8 @@
 
     </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
         android:orientation="vertical">
 
 <!--        <WebView-->
@@ -73,17 +73,42 @@
 
         <ListView
             android:id="@+id/listView"
-            android:background="@drawable/bg_whitebox"
-            android:foregroundGravity="center"
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_whitebox"
             android:cacheColorHint="@color/white"
+            android:foregroundGravity="center"
             android:gravity="center_horizontal"
             android:textAlignment="center" />
 
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/options_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginVertical="10sp"
+        android:textAlignment="center"
+        android:background="@drawable/bg_whitebox"
+        android:padding="10sp"
+        android:layout_marginHorizontal="80dp"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Atualizar"
+            android:gravity="center"
+            android:textColor="#B41C2C4C"
+            android:id="@+id/Atualizar"
+            android:background="@drawable/bg_whitebox"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"/>
 
 
 </LinearLayout>

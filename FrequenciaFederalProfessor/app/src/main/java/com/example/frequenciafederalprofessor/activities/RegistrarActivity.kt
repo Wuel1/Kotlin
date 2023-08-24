@@ -81,6 +81,7 @@ class RegistrarActivity : AppCompatActivity() {
     private fun registrarFirebase() {
         val database = FirebaseDatabase.getInstance()
         val dbRef = database.getReference("PROFESSOR")
+        val dbRef2 = database.getReference("FREQUENCIA")
         val email = binding.email.text.toString()
         val username = binding.username.text.toString()
         val password = binding.password.text.toString()
@@ -93,12 +94,21 @@ class RegistrarActivity : AppCompatActivity() {
                         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{ cadastro ->
                             if(cadastro.isSuccessful){
                                Toast.makeText(this, "Registrado com Sucesso", Toast.LENGTH_SHORT).show()
-                               val userMac = bluetoothAdapter.address
-                               dbRef.child(username).child(userMac).setValue(true)
-                               val user = auth.currentUser
-                               val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(username).build()
-                               user?.updateProfile(profileUpdates)
-                               limparCampos()
+                                val bluetoothName = bluetoothAdapter.name.toString()
+                                val bluetoothMac = bluetoothAdapter.address.toString()
+                                val anoInicial = 2022
+                                val anoFinal = 2024
+                                for (ano in anoInicial..anoFinal) {
+                                    for (periodo in 1..2) {
+                                        val periodoFormatado = "$ano-$periodo"
+                                        dbRef2.child(username).child(periodoFormatado).setValue(true)
+                                    }
+                                }
+                                dbRef.child(username).child(bluetoothName).setValue(bluetoothMac)
+                                val user = auth.currentUser
+                                val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(username).build()
+                                user?.updateProfile(profileUpdates)
+                                limparCampos()
                         }
                         }.addOnFailureListener { error ->
                             val mensagemDeError = when(error){
