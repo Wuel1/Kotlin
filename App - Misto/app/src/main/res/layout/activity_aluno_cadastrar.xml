@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".ProfessorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_box">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/button_voltar"/>
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="105dp"
+            android:src="@drawable/ufrpe_branco1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:padding="15dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:text="Preencha os campos abaixo!"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_2"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@."
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:textColorHint="#5E1C2C4C"
+            android:padding="10sp"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:hint="Nome e Sobrenome"
+            android:textColorHint="#5E1C2C4C"
+            android:padding="10sp"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@"
+            android:inputType="textPassword"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:hint="Password"
+            android:textColorHint="#5E1C2C4C"
+            android:padding="10sp"/>
+
+        <EditText
+            android:id="@+id/confirmPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
+            android:layout_margin="5dp"
+            android:hint="Confirm Password"
+            android:textColorHint="#5E1C2C4C"
+            android:padding="10sp"/>
+
+        <Button
+            android:id="@+id/registrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/bg_btn"
+            android:text="Registrar"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

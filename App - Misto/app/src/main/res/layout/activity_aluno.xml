@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".ProfessorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_box">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/button_voltar"/>
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="105dp"
+            android:src="@drawable/ufrpe_branco1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_btn">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:src="@drawable/contato_femino" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nome_aluno"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_btn_2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Valentina Fernandes\nEngenharia Da Computação\nUFRPE | UABJ"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_cadeiras"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/bg_btn"
+            android:text="Cadeiras"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_horarios"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/bg_btn"
+            android:text="Horários"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/frequencia"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/bg_btn"
+            android:text="Realizar Frequência"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_4"
+            android:layout_width="180dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/bg_btn"
+            android:text="Configuração"
+            android:textColor="@color/white" />
+
+
+    </LinearLayout>
+
+
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="250dp"
+        android:layout_gravity="center"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_btn"
+        app:menu="@menu/menu"/> -->
+
+   <!-- <Button
+        android:id="@+id/button_voltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="30dp"
+        android:background="@drawable/bg_btn"
+        android:text="Voltar"
+        android:textColor="@color/white" /> -->
+
+</LinearLayout>
