@@ -40,6 +40,18 @@
         <!-- Botão para ligar/desligar Bluetooth -->
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/options_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginVertical="10sp"
+        android:textAlignment="center"
+        android:background="@drawable/bg_whitebox"
+        android:padding="10sp"
+        android:layout_marginHorizontal="80dp"/>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="220dp"
+            android:layout_marginVertical="180dp"
             android:background="@drawable/baseline_bluetooth_connected_24_white"
             android:gravity="center"
             android:padding="10dp" />
