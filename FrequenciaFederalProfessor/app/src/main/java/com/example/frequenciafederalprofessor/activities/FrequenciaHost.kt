@@ -31,6 +31,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
     lateinit var binding: ActivityFrequenciaHostBinding
     lateinit var bluetoothAdapter: BluetoothAdapter
     lateinit var timer: TimerHelper
+    private lateinit var dbRef_2: DatabaseReference
     private lateinit var dbRef: DatabaseReference
     var isTimerRunning = false
 
@@ -38,6 +39,7 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         super.onCreate(savedInstanceState)
         val database =  FirebaseDatabase.getInstance()
         dbRef = database.getReference("FREQUENCIA")
+        dbRef_2 = database.getReference("ALUNO")
         binding = ActivityFrequenciaHostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -150,12 +152,18 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                     if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                         majorDeviceClass == BluetoothClass.Device.Major.PHONE
                     ) {
-                        qt += 1
-                        val nomeDispositivo = device.name
-                        val enderecoDispositivo = device.address
-                        val deviceInfo = "${qt} Dispositivos Pareados"
-                        binding.listaPareados.setText(deviceInfo)
-                        binding.listaPareados.invalidate()
+                        if(compara(device.name.toString())){
+                            qt += 1
+                            val nomeDispositivo = device.name
+                            val nomeAluno = dbRef_2.child(device.name).get()
+                            val enderecoDispositivo = device.address
+                            val deviceInfo = "${qt} Dispositivos Pareados\n ${nomeAluno}"
+                            binding.listaPareados.setText(deviceInfo)
+                            binding.listaPareados.invalidate()
+                        }else{
+                            val deviceInfo = "${qt} Dispositivos Pareados"
+                            binding.listaPareados.setText(deviceInfo)
+                        }
                     }
                 }
             }
@@ -176,6 +184,23 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         Toast.makeText(this, "Tempo Finalizado", Toast.LENGTH_SHORT).show()
         binding.Timer.text = "Tempo acabou!"
         isTimerRunning = false
+    }
+
+    fun compara(id: String): Boolean {
+        var confirma = false
+        dbRef_2.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(nome in snapshot.children){
+                    if(id == nome.key.toString()){
+                        confirma = true
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@FrequenciaHost, "${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+        return confirma
     }
 
 }
