@@ -29,6 +29,8 @@ class ListagemActivity : AppCompatActivity() {
     lateinit var binding: ActivityListagemBinding
     lateinit var bluetoothAdapter: BluetoothAdapter
     private lateinit var dbRef: DatabaseReference
+    private lateinit var dbRef_2: DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -38,6 +40,7 @@ class ListagemActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         dbRef = FirebaseDatabase.getInstance().getReference("FREQUENCIA")
+        dbRef_2 = FirebaseDatabase.getInstance().getReference("ALUNO")
         binding.NomeTabela.setText(obterNomeTabela())
         atualizar()
 
@@ -62,11 +65,12 @@ class ListagemActivity : AppCompatActivity() {
         try {
             listPeriodo()
             list()
+            val array = listaNome(bluetoothAdapter)
             val dbHelper = DBHelper(this)
             val adapter = ArrayAdapter(
                 this,
                 R.layout.simple_list_item_1,
-                dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter))
+                array
             )
             binding.listView.adapter = adapter
         } catch (e: Exception) {
@@ -75,7 +79,29 @@ class ListagemActivity : AppCompatActivity() {
     }
 
 
-    fun listaMac(bluetoothAdapter: BluetoothAdapter): Array<String> {
+    fun compara(id: String, callback: (Boolean, String?) -> Unit) {
+        dbRef_2.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var confirma = false
+                var aluno: String? = null
+                for (nome in snapshot.children) {
+                    if (id == nome.key.toString()) {
+                        confirma = true
+                        aluno = nome.value.toString()
+                        break  // Opcional: Saia do loop assim que encontrar uma correspondência
+                    }
+                }
+                callback(confirma, aluno) // Chame a função de retorno de chamada com o resultado e o aluno (pode ser nulo)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                callback(false, null) // Em caso de erro, retorne false e nulo
+            }
+        })
+    }
+
+
+
+    fun listaNome(bluetoothAdapter: BluetoothAdapter): Array<String> {
         val pareados = if (ActivityCompat.checkSelfPermission(this,Manifest.permission.BLUETOOTH_CONNECT)
                            != PackageManager.PERMISSION_GRANTED){
             bluetoothAdapter.bondedDevices
@@ -89,7 +115,15 @@ class ListagemActivity : AppCompatActivity() {
                 val majorDeviceClass = deviceClass.majorDeviceClass
                 if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                     majorDeviceClass == BluetoothClass.Device.Major.PHONE){
-                    usernamesList.add(device.address)
+                    compara(device.name) { confirma, aluno ->
+                        if (confirma) {
+                            if (aluno != null) {
+                                Toast.makeText(this, "adicionou, ${aluno}", Toast.LENGTH_SHORT).show()
+                                usernamesList.add(aluno)
+                            }
+                            // Continuar com outras ações, se necessário
+                        }
+                    }
                 }
             }
         }
@@ -106,7 +140,7 @@ class ListagemActivity : AppCompatActivity() {
 
     private fun exportar() {
         val dbHelper = DBHelper(this)
-        val alunos = dbHelper.verificarAlunosPorMacs(listaMac(bluetoothAdapter))
+        val alunos = listaNome(bluetoothAdapter)
 
         if (alunos.isEmpty()) {
             Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()

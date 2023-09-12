@@ -152,17 +152,16 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
                     if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                         majorDeviceClass == BluetoothClass.Device.Major.PHONE
                     ) {
-                        if(compara(device.name.toString())){
-                            qt += 1
-                            val nomeDispositivo = device.name
-                            val nomeAluno = dbRef_2.child(device.name).get()
-                            val enderecoDispositivo = device.address
-                            val deviceInfo = "${qt} Dispositivos Pareados\n ${nomeAluno}"
-                            binding.listaPareados.setText(deviceInfo)
-                            binding.listaPareados.invalidate()
-                        }else{
-                            val deviceInfo = "${qt} Dispositivos Pareados"
-                            binding.listaPareados.setText(deviceInfo)
+                        compara(device.name.toString()) { confirma ->
+                            if (confirma) {
+                                // O código aqui será executado quando a função compara terminar
+                                qt += 1
+                                val nomeDispositivo = device.name
+                                val enderecoDispositivo = device.address
+                                val deviceInfo = "$qt Dispositivos Pareados"
+                                binding.listaPareados.text = deviceInfo
+                                binding.listaPareados.invalidate()
+                            }
                         }
                     }
                 }
@@ -186,21 +185,24 @@ class FrequenciaHost : AppCompatActivity(), TimerHelper.TimerCallback {
         isTimerRunning = false
     }
 
-    fun compara(id: String): Boolean {
-        var confirma = false
+    fun compara(id: String, callback: (Boolean) -> Unit) {
         dbRef_2.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                var confirma = false
                 for(nome in snapshot.children){
+                    Toast.makeText(this@FrequenciaHost, "${nome.key.toString()}", Toast.LENGTH_SHORT).show()
                     if(id == nome.key.toString()){
                         confirma = true
+                        break  // Opcional: Saia do loop assim que encontrar uma correspondência
                     }
                 }
+                callback(confirma) // Chame a função de retorno de chamada com o resultado
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@FrequenciaHost, "${error.message}", Toast.LENGTH_SHORT).show()
+                callback(false) // Em caso de erro, retorne false
             }
         })
-        return confirma
     }
 
 }
