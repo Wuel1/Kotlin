@@ -20,9 +20,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class ListagemActivity : AppCompatActivity() {
 
@@ -30,6 +35,7 @@ class ListagemActivity : AppCompatActivity() {
     lateinit var bluetoothAdapter: BluetoothAdapter
     private lateinit var dbRef: DatabaseReference
     private lateinit var dbRef_2: DatabaseReference
+    private val scope = CoroutineScope(Dispatchers.Main)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,21 +71,22 @@ class ListagemActivity : AppCompatActivity() {
         try {
             listPeriodo()
             list()
-            val array = listaNome(bluetoothAdapter)
-            val dbHelper = DBHelper(this)
-            val adapter = ArrayAdapter(
-                this,
-                R.layout.simple_list_item_1,
-                array
-            )
-            binding.listView.adapter = adapter
+            scope.launch {
+                val array = listaNome(bluetoothAdapter)
+                val dbHelper = DBHelper(this@ListagemActivity)
+                val adapter = ArrayAdapter(
+                    this@ListagemActivity,
+                    R.layout.simple_list_item_1,
+                    array
+                )
+                binding.listView.adapter = adapter
+            }
         } catch (e: Exception) {
             Toast.makeText(this, "Error, ${e}", Toast.LENGTH_SHORT).show()
         }
     }
 
-
-    fun compara(id: String, callback: (Boolean, String?) -> Unit) {
+    suspend fun compara(id: String): Pair<Boolean, String?> = suspendCoroutine { cont ->
         dbRef_2.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var confirma = false
@@ -88,22 +95,21 @@ class ListagemActivity : AppCompatActivity() {
                     if (id == nome.key.toString()) {
                         confirma = true
                         aluno = nome.value.toString()
-                        break  // Opcional: Saia do loop assim que encontrar uma correspondência
+                        break
                     }
                 }
-                callback(confirma, aluno) // Chame a função de retorno de chamada com o resultado e o aluno (pode ser nulo)
+                cont.resume(Pair(confirma, aluno))
             }
+
             override fun onCancelled(error: DatabaseError) {
-                callback(false, null) // Em caso de erro, retorne false e nulo
+                cont.resume(Pair(false, null))
             }
         })
     }
 
-
-
-    fun listaNome(bluetoothAdapter: BluetoothAdapter): Array<String> {
+    suspend fun listaNome(bluetoothAdapter: BluetoothAdapter): Array<String> {
         val pareados = if (ActivityCompat.checkSelfPermission(this,Manifest.permission.BLUETOOTH_CONNECT)
-                           != PackageManager.PERMISSION_GRANTED){
+            != PackageManager.PERMISSION_GRANTED){
             bluetoothAdapter.bondedDevices
         } else{
             return emptyArray()
@@ -115,13 +121,11 @@ class ListagemActivity : AppCompatActivity() {
                 val majorDeviceClass = deviceClass.majorDeviceClass
                 if (majorDeviceClass == BluetoothClass.Device.Major.COMPUTER ||
                     majorDeviceClass == BluetoothClass.Device.Major.PHONE){
-                    compara(device.name) { confirma, aluno ->
-                        if (confirma) {
-                            if (aluno != null) {
-                                Toast.makeText(this, "adicionou, ${aluno}", Toast.LENGTH_SHORT).show()
-                                usernamesList.add(aluno)
-                            }
-                            // Continuar com outras ações, se necessário
+                    val (confirma, aluno) = compara(device.name)
+                    if (confirma) {
+                        if (aluno != null) {
+                            Toast.makeText(this, "adicionou, ${aluno}", Toast.LENGTH_SHORT).show()
+                            usernamesList.add(aluno)
                         }
                     }
                 }
@@ -139,42 +143,45 @@ class ListagemActivity : AppCompatActivity() {
     }
 
     private fun exportar() {
-        val dbHelper = DBHelper(this)
-        val alunos = listaNome(bluetoothAdapter)
+        scope.launch {
+            val dbHelper = DBHelper(this@ListagemActivity)
+            val alunos = listaNome(bluetoothAdapter)
 
-        if (alunos.isEmpty()) {
-            Toast.makeText(this, "Frequência Vazia", Toast.LENGTH_SHORT).show()
-        } else {
-            val database = FirebaseDatabase.getInstance()
-            val dbRef = database.getReference("FREQUENCIA")
+            if (alunos.isEmpty()) {
+                Toast.makeText(this@ListagemActivity, "Frequência Vazia", Toast.LENGTH_SHORT).show()
+            } else {
+                val database = FirebaseDatabase.getInstance()
+                val dbRef = database.getReference("FREQUENCIA")
 
-            val user = FirebaseAuth.getInstance().currentUser
-            val username = user?.displayName.toString()
-            val anoLetivo = binding.optionsSpinnerPeriodo.selectedItem.toString()
-            val disciplina = binding.optionsSpinner.selectedItem.toString()
+                val user = FirebaseAuth.getInstance().currentUser
+                val username = user?.displayName.toString()
+                val anoLetivo = binding.optionsSpinnerPeriodo.selectedItem.toString()
+                val disciplina = binding.optionsSpinner.selectedItem.toString()
 
-            val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                val data = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-            val professorRef = dbRef.child(username)
-            val anoLetivoRef = professorRef.child(anoLetivo)
-            val disciplinaRef = anoLetivoRef.child(disciplina)
-            val dataRef = disciplinaRef.child(data)
+                val professorRef = dbRef.child(username)
+                val anoLetivoRef = professorRef.child(anoLetivo)
+                val disciplinaRef = anoLetivoRef.child(disciplina)
+                val dataRef = disciplinaRef.child(data)
 
-            val updates = HashMap<String, Any?>() // Crie um mapa para as atualizações
+                val updates = HashMap<String, Any?>() // Crie um mapa para as atualizações
 
-            for (nome in alunos) {
-                val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
-                updates["$alunoId"] = true
+                for (nome in alunos) {
+                    val alunoId = nome.replace(" ", "_") // Substitua espaços por underscores para usar como ID
+                    updates["$alunoId"] = true
+                }
+                dataRef.updateChildren(updates)
+                    .addOnCompleteListener {
+                        Toast.makeText(this@ListagemActivity, "Frequência Exportada", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { erro ->
+                        Toast.makeText(this@ListagemActivity, "Erro - $erro", Toast.LENGTH_SHORT).show()
+                    }
             }
-            dataRef.updateChildren(updates)
-                .addOnCompleteListener {
-                    Toast.makeText(this, "Frequência Exportada", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { erro ->
-                    Toast.makeText(this, "Erro - $erro", Toast.LENGTH_SHORT).show()
-                }
         }
     }
+
 
     fun listagem(callback: (Array<String>) -> Unit) {
         val disciplinasList = mutableListOf<String>()
