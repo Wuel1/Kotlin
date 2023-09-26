@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Calcular Dimensionamento"
-            android:textColor="@color/verde_claro"
+            android:textColor="@color/black"
             android:background="#00FFFFFF"/>
 
 
