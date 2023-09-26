@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Dimenf" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#016864</item>
+        <item name="colorPrimaryDark">#016864</item>
+        <item name="android:forceDarkAllowed" tools:tagetApi="q"> false</item>
+    </style>
+
+    <style name="Theme.Dimenf" parent="Base.Theme.Dimenf" />
+</resources>
