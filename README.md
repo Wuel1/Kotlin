@@ -2,13 +2,7 @@
 Bem-vindo ao meu repositório pessoal de aplicativos desenvolvidos em Kotlin. Aqui, você encontrará uma coleção de aplicativos que eu criei como parte do meu aprendizado e desenvolvimento em Kotlin. Cada aplicativo é uma oportunidade de aprimorar minhas habilidades e explorar diferentes conceitos de programação.
 
 <h2> Aplicativos Disponíveis </h2>
-Aqui está uma lista dos aplicativos que você pode encontrar neste repositório:
-
-Nome do Aplicativo 1: [Breve descrição do aplicativo 1]
-
-Nome do Aplicativo 2: [Breve descrição do aplicativo 2]
-
-Nome do Aplicativo 3: [Breve descrição do aplicativo 3]
+Aqui está uma lista dos aplicativos que você pode encontrar neste repositório
 
 <h2> Como Utilizar os Aplicativos </h2>
 Cada diretório de aplicativo contém seu próprio README com informações detalhadas sobre como baixar, configurar e executar o aplicativo. Consulte o README específico do aplicativo de interesse para obter instruções detalhadas.
